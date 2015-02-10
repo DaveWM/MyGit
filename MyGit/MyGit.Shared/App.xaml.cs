@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -60,9 +61,16 @@ namespace MyGit
 
             this.UnhandledException += (s, ea) =>
             {
-                new MessageDialog(ea.Message).ShowAsync();
-                Frame.Navigate(typeof(LoginPage));
-                ea.Handled = true;
+                if (!NetworkInterface.GetIsNetworkAvailable())
+                {
+                    new MessageDialog("Please check your internet connection and try again").ShowAsync();
+                }
+                else
+                {
+                    new MessageDialog(ea.Message).ShowAsync();
+                    Frame.Navigate(typeof (LoginPage));
+                    ea.Handled = true;
+                }
             };
         }
 
