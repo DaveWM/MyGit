@@ -1,0 +1,15 @@
+﻿<Application
+    x:Class="MyGit.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyGit"
+    xmlns:converters="using:MyGit.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <converters:UnreadStatusConverter x:Key="ReadStatusConverter"></converters:UnreadStatusConverter>
+            <converters:DateFormatConverter x:Key="DateFormatConverter"></converters:DateFormatConverter>
+            <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"></converters:InvertBooleanConverter>
+            <converters:StringToUriConverter x:Key="StringToUriConverter"></converters:StringToUriConverter>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

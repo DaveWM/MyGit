@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="MyGit.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyGit.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:MyGit.ViewModels"
+    mc:Ignorable="d">
+    <Grid>
+        <Hub>
+            <HubSection Header="Notifications">
+                <HubSection.DataContext>
+                    <viewModels:NotificationsViewModel></viewModels:NotificationsViewModel>
+                </HubSection.DataContext>
+                <DataTemplate>
+                    <StackPanel>
+                    <ProgressBar Visibility="{Binding IsLoading}" IsIndeterminate="True"></ProgressBar>
+                        <ListView ItemsSource="{Binding Notifications}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding UpdatedAt}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Text="{Binding Path=Subject.Title}"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
+    </Grid>
+</Page>
+
