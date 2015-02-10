@@ -10,6 +10,7 @@
             <converters:DateFormatConverter x:Key="DateFormatConverter"></converters:DateFormatConverter>
             <converters:InvertBooleanConverter x:Key="InvertBooleanConverter"></converters:InvertBooleanConverter>
             <converters:StringToUriConverter x:Key="StringToUriConverter"></converters:StringToUriConverter>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

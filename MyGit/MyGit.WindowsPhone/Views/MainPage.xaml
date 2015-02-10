@@ -17,6 +17,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Templates/NotificationItem.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="../Templates/NewsItem.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Templates/Repository.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -50,7 +51,28 @@
                     </Grid>
                 </PivotItem.Content>
             </PivotItem>
+            <PivotItem Header="Repositories" DataContext="{Binding ReposViewModel}">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Row="0" Name="RepoChoiceBox" ItemsSource="{Binding RepoListChoices, Mode=OneWay}" SelectedValuePath="Value" DisplayMemberPath="Key" SelectedValue="{Binding RepoListChoices[Owned]}"></ComboBox>
+                    <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedValue}" ItemTemplate="{StaticResource RepositoryTemplate}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
+            </PivotItem>
         </Pivot>
+        <ItemsPresenter HorizontalAlignment="Left" Height="100" Margin="260,123,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar DataContext="{Binding DataContext, ElementName=Page}">
