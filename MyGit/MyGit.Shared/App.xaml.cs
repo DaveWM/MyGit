@@ -75,23 +75,29 @@ namespace MyGit
         }
 
 
-        private void RegisterBackgroundTask()
+        private async void RegisterBackgroundTask()
         {
             const string taskName = "NotificationsBackgroundTask";
+
             var alreadyRegistered = BackgroundTaskRegistration.AllTasks.Any((t) => t.Value.Name == taskName);
-
-            if (!alreadyRegistered)
+            if (alreadyRegistered)
             {
-                var builder = new BackgroundTaskBuilder
-                {
-                    Name = taskName,
-                    TaskEntryPoint = string.Format("NotificationsBackgroundTask.{0}", taskName)
-                };
-
-                builder.SetTrigger(new TimeTrigger(20, false));
-                builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
-                builder.Register();
+                var task = BackgroundTaskRegistration.AllTasks.FirstOrDefault(t => t.Value.Name == taskName);
+                task.Value.Unregister(true);
             }
+
+            var permission = await BackgroundExecutionManager.RequestAccessAsync();
+            if (permission == BackgroundAccessStatus.Denied) return;
+
+            var builder = new BackgroundTaskBuilder
+            {
+                Name = taskName,
+                TaskEntryPoint = string.Format("NotificationsBackgroundTask.{0}", taskName)
+            };
+
+            builder.SetTrigger(new TimeTrigger(30, false));
+            builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
+            builder.Register();
         }
 
         /// <summary>
@@ -110,7 +116,7 @@ namespace MyGit
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
+            
             Frame rootFrame = Frame;
 
             // Do not repeat app initialization when the Window already has content,

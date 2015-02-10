@@ -49,7 +49,6 @@ namespace MyGit.ViewModels
                 All = true
             });
             Notifications = unorderedNotifications.OrderBy(n => n.Unread).ThenByDescending(n => n.UpdatedAt);
-
             IsLoading = false;
         }
 

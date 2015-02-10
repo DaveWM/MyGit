@@ -15,7 +15,13 @@ namespace NotificationsBackgroundTask
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var deferral = taskInstance.GetDeferral();
-            var token = ApplicationData.Current.LocalSettings.Values["token"] as string;
+
+            var settings = ApplicationData.Current.LocalSettings;
+            var token = settings.Values["token"] as string;
+            if (!settings.Values.ContainsKey("notificationsCount"))
+            {
+                settings.Values["notificationsCount"] = 0;
+            }
             if (token != null)
             {
                 var client = new GitHubClient(new ProductHeaderValue("MyGit"));
@@ -23,13 +29,21 @@ namespace NotificationsBackgroundTask
 
                 var notifications = await client.Notification.GetAllForCurrent(new NotificationsRequest
                 {
-                    All = true
+                    All = false
                 });
 
                 var badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeGlyph);
                 var badge = badgeXml.SelectSingleNode("/badge") as XmlElement;
                 badge.SetAttribute("value", notifications.Count.ToString());
                 BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(new BadgeNotification(badgeXml));
+
+                if (notifications.Count <= (int)settings.Values["notificationsCount"])
+                {
+                    settings.Values["notificationsCount"] = notifications.Count;
+                    deferral.Complete();
+                    return;
+                }
+
                 var template = ToastTemplateType.ToastImageAndText01;
                 var xml = ToastNotificationManager.GetTemplateContent(template);
                 var toastTextElements = xml.GetElementsByTagName("text");
@@ -41,6 +55,8 @@ namespace NotificationsBackgroundTask
 
                 var toast = new ToastNotification(xml);
                 ToastNotificationManager.CreateToastNotifier().Show(toast);
+
+                settings.Values["notificationsCount"] = notifications.Count;
             }
             deferral.Complete();
         }
