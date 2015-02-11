@@ -12,14 +12,17 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}">MyGit</TextBlock>
-            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="10,10,10,10">Welcome to MyGit</TextBlock>
-        </StackPanel>
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Style="{ThemeResource HeaderTextBlockStyle}" Margin="10,10,10,10">MyGit</TextBlock>
+            <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}" Margin="10,10,10,10">
+                Welcome to MyGit - a windows phone/windows 8.1 app for viewing and managing your github notifications, repos, issues and more        </TextBlock>
+            <Button Grid.Row="2" Command="{Binding LoginCommand}" Margin="15,0,15,0" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center">Log In</Button>
+        </Grid>
     </Grid>
-    <Page.BottomAppBar>
-        <CommandBar IsOpen="True">
-            <AppBarButton Label="Login" Icon="Account" Command="{Binding LoginCommand}"/>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>
