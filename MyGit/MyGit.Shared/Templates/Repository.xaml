@@ -16,10 +16,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                <TextBlock Text="{Binding FullName}" FontWeight="Bold" Style="{ThemeResource SubheaderTextBlockStyle}"></TextBlock>
-                <BitmapIcon Height="15" Margin="5,0,0,0" UriSource="../Images/fork.png" Visibility="{Binding Fork, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Top"></BitmapIcon>
-            </StackPanel>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="1" Text="{Binding FullName}" FontWeight="Bold" Style="{ThemeResource SubheaderTextBlockStyle}"></TextBlock>
+                <BitmapIcon Grid.Column="0" Height="15" Margin="0,0,5,0" UriSource="../Images/fork.png" Visibility="{Binding Fork, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Top"></BitmapIcon>
+            </Grid>
             <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Left">
                     <SymbolIcon Symbol="SolidStar" VerticalAlignment="Center" Margin="0,0,5,0"></SymbolIcon>
