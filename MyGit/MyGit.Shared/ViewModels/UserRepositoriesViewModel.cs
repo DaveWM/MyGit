@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using MyGit.Annotations;
 using Octokit;
@@ -13,61 +16,21 @@ namespace MyGit.ViewModels
 {
     public class UserRepositoriesViewModel : INotifyPropertyChanged
     {
-        private IEnumerable<Repository> _ownedRepos;
-        public IEnumerable<Repository> OwnedRepos
-        {
-            get { return _ownedRepos; }
-            set
-            {
-                _ownedRepos = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<Repository> OwnedRepos { get; set; }
 
-        private IEnumerable<Repository> _starredRepos;
-        public IEnumerable<Repository> StarredRepos
-        {
-            get { return _starredRepos; }
-            set
-            {
-                _starredRepos = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<Repository> StarredRepos { get; set; }
 
-        private IEnumerable<Repository> _watchedRepos;
-        public IEnumerable<Repository> WatchedRepos
-        {
-            get { return _watchedRepos; }
-            set
-            {
-                _watchedRepos = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Dictionary<string, IEnumerable<Repository>> RepoListChoices
-        {
-            get
-            {
-                return new Dictionary<string, IEnumerable<Repository>>
-                {
-                    {"Owned", OwnedRepos},
-                    {"Watched", WatchedRepos},
-                    {"Starred", StarredRepos}
-                };
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        } 
+        public ObservableCollection<Repository> WatchedRepos { get; set; }
 
         private readonly IGitHubClient _gitHubClient;
 
         public UserRepositoriesViewModel()
         {
             _gitHubClient = App.Container.Resolve<IGitHubClient>();
+
+            OwnedRepos = new ObservableCollection<Repository>();
+            StarredRepos = new ObservableCollection<Repository>();
+            WatchedRepos = new ObservableCollection<Repository>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -76,21 +39,14 @@ namespace MyGit.ViewModels
         {
             IsLoading = true;
 
-            OwnedRepos = null;
-            StarredRepos = null;
-            WatchedRepos = null;
+            OwnedRepos.Clear();
+            StarredRepos.Clear();
+            WatchedRepos.Clear();
 
-            var tasks = new List<Task>
-            {
-                _gitHubClient.Repository.GetAllForCurrent()
-                    .ContinueWith(async task => OwnedRepos = (await task).OrderByDescending(r => r.UpdatedAt).ToList()),
-                _gitHubClient.Activity.Starring.GetAllForCurrent()
-                    .ContinueWith(async task => StarredRepos = (await task).OrderByDescending(r => r.UpdatedAt).ToList()),
-                _gitHubClient.Activity.Watching.GetAllForCurrent()
-                    .ContinueWith(async task => WatchedRepos = (await task).OrderByDescending(r => r.UpdatedAt).ToList())
-            };
+            (await _gitHubClient.Repository.GetAllForCurrent()).OrderByDescending(r => r.UpdatedAt).ForEach(r => OwnedRepos.Add(r));
+            (await _gitHubClient.Activity.Starring.GetAllForCurrent()).OrderByDescending(r => r.UpdatedAt).ForEach(r => StarredRepos.Add(r));
+            (await _gitHubClient.Activity.Watching.GetAllForCurrent()).OrderByDescending(r => r.UpdatedAt).ForEach(r => WatchedRepos.Add(r));
 
-            await Task.WhenAll(tasks);
             IsLoading = false;
         }
 

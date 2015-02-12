@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Unity;
@@ -44,6 +45,7 @@ namespace MyGit.ViewModels
             IsLoading = true;
 
             Notifications = null;
+
             var unorderedNotifications = await _gitHubClient.Notification.GetAllForCurrent(new NotificationsRequest
             {
                 All = true

@@ -19,17 +19,18 @@
             <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="1" Text="{Binding FullName}" FontWeight="Bold" Style="{ThemeResource SubheaderTextBlockStyle}"></TextBlock>
-                <BitmapIcon Grid.Column="0" Height="15" Margin="0,0,5,0" UriSource="../Images/fork.png" Visibility="{Binding Fork, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Top"></BitmapIcon>
+                <BitmapIcon Grid.Column="0" Height="15" Margin="0,0,5,0" UriSource="../Images/fork.png" Visibility="{Binding Fork, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top"></BitmapIcon>
+                <TextBlock Grid.Column="2" Text="{Binding FullName}" FontWeight="Bold" Style="{ThemeResource SubheaderTextBlockStyle}"></TextBlock>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Left">
                     <SymbolIcon Symbol="SolidStar" VerticalAlignment="Center" Margin="0,0,5,0"></SymbolIcon>
                     <TextBlock Text="{Binding StargazersCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0"></TextBlock>
-                    <BitmapIcon UriSource="../Images/eye_icon.png" VerticalAlignment="Center" Margin="0,3,5,0"></BitmapIcon>
-                    <TextBlock Text="{Binding WatchersCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+                    <BitmapIcon UriSource="../Images/fork.png" VerticalAlignment="Center" Margin="0,3,5,0"></BitmapIcon>
+                    <TextBlock Text="{Binding ForksCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
                 </StackPanel>
             </Grid>
             <TextBlock Grid.Row="2" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Description}" Margin="0,10,0,0"></TextBlock>

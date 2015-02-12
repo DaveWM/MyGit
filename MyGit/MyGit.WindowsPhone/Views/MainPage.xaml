@@ -60,9 +60,15 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ComboBox Grid.Row="0" Name="RepoChoiceBox" ItemsSource="{Binding RepoListChoices, Mode=OneWay}" SelectedValuePath="Value" DisplayMemberPath="Key" SelectedValue="{Binding RepoListChoices[Owned]}"></ComboBox>
+                    <ComboBox Grid.Row="0" Name="RepoChoiceBox" SelectedValuePath="Tag">
+                        <ComboBox.Items>
+                            <ComboBoxItem Tag="{Binding OwnedRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Owned" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem Tag="{Binding StarredRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Starred"></ComboBoxItem>
+                            <ComboBoxItem Tag="{Binding WatchedRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Watched"></ComboBoxItem>
+                        </ComboBox.Items>
+                    </ComboBox>
                     <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
-                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedValue}" ItemTemplate="{StaticResource RepositoryTemplate}">
+                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

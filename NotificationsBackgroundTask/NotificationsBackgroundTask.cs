@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.Storage;
@@ -24,7 +21,8 @@ namespace NotificationsBackgroundTask
             }
             if (token != null)
             {
-                var client = new GitHubClient(new ProductHeaderValue("MyGit"));
+                var connection = new Connection(new ProductHeaderValue("MyGit"), new NonCachedHttpClient());
+                var client = new GitHubClient(connection);
                 client.Credentials = new Credentials(token);
 
                 var notifications = await client.Notification.GetAllForCurrent(new NotificationsRequest

@@ -16,6 +16,7 @@ using Microsoft.Practices.Unity;
 using MyGit.Services;
 using MyGit.Views;
 using Octokit;
+using Octokit.Internal;
 using Application = Windows.UI.Xaml.Application;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -54,16 +55,19 @@ namespace MyGit
 #if WINDOWS_PHONE_APP
             appName = "MyGit_Phone";
 #endif
-            _gitHubClient = new GitHubClient(new ProductHeaderValue(appName));
+            // have to make use a custom connection type otherwise all the http responses get cached (-_-)
+            var connection = new Connection(new ProductHeaderValue(appName), new NonCachedHttpClient());
+            _gitHubClient = new GitHubClient(connection);
             Container.RegisterInstance<IGitHubClient>(_gitHubClient);
             _loginService = new LoginService();
             Container.RegisterInstance<ILoginService>(_loginService);
-
-            this.UnhandledException += (s, ea) =>
+            
+            this.UnhandledException += async (s, ea) =>
             {
                 if (!NetworkInterface.GetIsNetworkAvailable())
                 {
                     new MessageDialog("Please check your internet connection and try again").ShowAsync();
+                    ea.Handled = true;
                 }
                 else
                 {
