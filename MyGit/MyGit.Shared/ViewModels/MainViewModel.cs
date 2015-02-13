@@ -14,6 +14,7 @@ namespace MyGit.ViewModels
         public NotificationsViewModel NotificationsViewModel { get; set; }
         public NewsViewModel NewsViewModel { get; set; }
         public UserRepositoriesViewModel ReposViewModel { get; set; }
+        public UserIssuesViewModel IssuesViewModel { get; set; }
 
         private User _user;
 
@@ -49,6 +50,7 @@ namespace MyGit.ViewModels
             NotificationsViewModel = new NotificationsViewModel();
             NewsViewModel = new NewsViewModel();
             ReposViewModel = new UserRepositoriesViewModel();
+            IssuesViewModel = new UserIssuesViewModel();
             _gitHubClient = App.Container.Resolve<IGitHubClient>();
 
             Refresh();
@@ -59,7 +61,7 @@ namespace MyGit.ViewModels
             IsLoading = true;
 
             User = await _gitHubClient.User.Current();
-            await Task.WhenAll(new List<Task> { NotificationsViewModel.Refresh(), NewsViewModel.Refresh(), ReposViewModel.Refresh() });
+            await Task.WhenAll(new List<Task> { NotificationsViewModel.Refresh(), NewsViewModel.Refresh(), ReposViewModel.Refresh(), IssuesViewModel.Refresh() });
 
             IsLoading = false;
         }

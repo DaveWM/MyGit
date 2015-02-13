@@ -44,8 +44,8 @@ namespace MyGit.ViewModels
             WatchedRepos.Clear();
 
             (await _gitHubClient.Repository.GetAllForCurrent()).OrderByDescending(r => r.UpdatedAt).ForEach(r => OwnedRepos.Add(r));
-            (await _gitHubClient.Activity.Starring.GetAllForCurrent()).OrderByDescending(r => r.UpdatedAt).ForEach(r => StarredRepos.Add(r));
-            (await _gitHubClient.Activity.Watching.GetAllForCurrent()).OrderByDescending(r => r.UpdatedAt).ForEach(r => WatchedRepos.Add(r));
+            (await _gitHubClient.Activity.Starring.GetAllForCurrent()).OrderByDescending(r => r.StargazersCount).ForEach(r => StarredRepos.Add(r));
+            (await _gitHubClient.Activity.Watching.GetAllForCurrent()).OrderByDescending(r => r.StargazersCount).ForEach(r => WatchedRepos.Add(r));
 
             IsLoading = false;
         }

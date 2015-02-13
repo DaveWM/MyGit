@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="../Templates/NotificationItem.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="../Templates/NewsItem.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="../Templates/Repository.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Templates/Issue.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -69,6 +70,31 @@
                     </ComboBox>
                     <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
                     <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Issues" DataContext="{Binding IssuesViewModel}">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Row="0" Name="IssueTypeChoiceBox" SelectedValuePath="Tag">
+                        <ComboBox.Items>
+                            <ComboBoxItem Tag="{Binding AssignedIssues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Assigned" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem Tag="{Binding SubscribedIssues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Subscribed"></ComboBoxItem>
+                        </ComboBox.Items>
+                    </ComboBox>
+                    <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=IssueTypeChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource IssueTemplate}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

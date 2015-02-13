@@ -24,7 +24,7 @@ namespace MyGit.Services
         protected const string TokenSettingKey = "token";
         protected abstract string ClientSecret { get; }
         protected abstract string ClientId { get; }
-        protected readonly List<string> Scopes = new List<string>{ "notifications", "user" };
+        protected readonly List<string> Scopes = new List<string>{ "notifications", "user", "repo", "gist" };
 
         public string Token
         {
