@@ -111,7 +111,7 @@
             <AppBarButton Label="Refresh" IsEnabled="{Binding IsLoading, Converter={StaticResource InvertBooleanConverter}}" 
                                       Command="{Binding RefreshCommand, Mode=OneWay}" Margin="7,0,0,0"
                                       Icon="Refresh" IsCompact="True" VerticalAlignment="Center"/>
-            <AppBarButton Label="User Details" Icon="Contact" />
+            <AppBarButton Label="User Details" Icon="Contact" Command="{Binding GoToUserDetails}"/>
             <AppBarButton Icon="Undo" Label="Log Out" Command="{Binding Logout}"/>
         </CommandBar>
     </Page.BottomAppBar>

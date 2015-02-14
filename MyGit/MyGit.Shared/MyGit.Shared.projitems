@@ -17,6 +17,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DateFormatConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InvertBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToUriConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UnreadStatusConverter.cs" />
@@ -29,10 +30,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotificationsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserIssuesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserRepositoriesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserDetailsPage.xaml.cs">
+      <DependentUpon>UserDetailsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\UserDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="MyGit.Views.UserDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyGit.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:MyGit.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModels:UserDetailsViewModel></viewModels:UserDetailsViewModel>
+    </Page.DataContext>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="{Binding User.AvatarUrl}" Stretch="Uniform" Margin="10,15,15,15"></Image>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding User.Login}" 
+                VerticalAlignment="Center" Style="{ThemeResource HeaderTextBlockStyle}"></TextBlock>
+        <TextBlock Margin ="10,20,0,0" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}">Name</TextBlock>
+        <TextBlock Margin ="15,20,0,0" Grid.Row="1" Grid.Column="1" Text="{Binding User.Name}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+        <TextBlock Margin ="10,20,0,0" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}">Email</TextBlock>
+        <TextBlock Margin ="15,20,0,0" Grid.Row="2" Grid.Column="1" Text="{Binding User.Email}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+        <TextBlock Margin ="10,20,0,0" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}">Location</TextBlock>
+        <TextBlock Margin ="15,20,0,0" Grid.Row="3" Grid.Column="1" Text="{Binding User.Location}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+        <TextBlock Margin ="10,20,0,0" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}">Company</TextBlock>
+        <TextBlock Margin ="15,20,0,0" Grid.Row="4" Grid.Column="1" Text="{Binding User.Company}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+        <TextBlock Margin ="10,20,0,0" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}">Plan</TextBlock>
+        <TextBlock Margin ="15,20,0,0" Grid.Row="5" Grid.Column="1" Text="{Binding User.Plan.Name, Converter={StaticResource ToStringConverter}}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding User.Bio}" Margin="10,30,10,0"></TextBlock>
+    </Grid>
+</Page>

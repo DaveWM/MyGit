@@ -2,9 +2,12 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Unity;
 using MyGit.Annotations;
+using MyGit.Views;
 using Octokit;
 
 namespace MyGit.ViewModels
@@ -71,6 +74,17 @@ namespace MyGit.ViewModels
             get
             {
                 return new DelegateCommand(Refresh);
+            }
+        }
+
+        public DelegateCommand GoToUserDetails
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    App.Frame.Navigate(typeof (UserDetailsPage));
+                });
             }
         }
 

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
+using Windows.Phone.UI.Input;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -75,6 +76,14 @@ namespace MyGit
                     Frame.Navigate(typeof (LoginPage));
                     ea.Handled = true;
                 }
+            };
+
+            HardwareButtons.BackPressed += (s, e) =>
+            {
+                if (Frame == null || !Frame.CanGoBack) return;
+
+                e.Handled = true;
+                Frame.GoBack();
             };
         }
 
