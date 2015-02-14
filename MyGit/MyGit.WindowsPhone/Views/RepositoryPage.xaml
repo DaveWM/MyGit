@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="MyGit.Views.RepositoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyGit.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:MyGit.ViewModels"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <viewModels:RepositoryViewModel></viewModels:RepositoryViewModel>
+    </Page.DataContext>
+    <StackPanel Orientation="Vertical" Margin="10,10,10,0"> 
+        <ProgressBar IsIndeterminate="True" IsEnabled="True" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"></ProgressBar>
+        <TextBlock Text="{Binding Repository.Name}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,0,0,10"></TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+            <Ellipse Height="40" Width="40">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding Repository.Owner.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock VerticalAlignment="Center" Text="{Binding Repository.Owner.Login}" Margin="7,0,0,0" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+        </StackPanel>
+        <TextBlock Margin="0,0,0,5" FontWeight="Light" Style="{ThemeResource BodyTextBlockStyle}" Visibility="{Binding Repository.Fork, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Run>Forked from </Run>
+            <Run Text="{Binding Repository.Parent.FullName}"></Run>
+        </TextBlock>
+        <StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Left">
+            <SymbolIcon Symbol="SolidStar" VerticalAlignment="Center" Margin="0,0,5,0"></SymbolIcon>
+            <TextBlock Text="{Binding Repository.StargazersCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0"></TextBlock>
+            <BitmapIcon UriSource="../Images/fork.png" VerticalAlignment="Center" Margin="0,0,5,0"></BitmapIcon>
+            <TextBlock Text="{Binding Repository.ForksCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0"></TextBlock>
+            <BitmapIcon UriSource="../Images/eye_icon.png" VerticalAlignment="Center" Margin="0,3,5,0"></BitmapIcon>
+            <TextBlock Text="{Binding Repository.WatchersCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+        </StackPanel>
+        <Pivot>
+            <PivotItem Header="Details">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Margin="0,0,0,5" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light">
+                            <Run>Created on </Run>
+                            <Run Text="{Binding Repository.CreatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
+                    </TextBlock>
+                    <TextBlock Margin="0,0,0,15" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light">
+                            <Run>Last Updated on </Run>
+                            <Run Text="{Binding Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Repository.Description}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="Issues">
+                <StackPanel Orientation="Vertical">
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="Pull Requests">
+                <StackPanel Orientation="Vertical">
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Header="Commits">
+                <StackPanel Orientation="Vertical">
+                </StackPanel>
+            </PivotItem>
+        </Pivot>
+    </StackPanel>
+</Page>

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Unity;
 using MyGit.Annotations;
+using MyGit.Views;
 using Octokit;
 
 namespace MyGit.ViewModels
@@ -62,6 +64,22 @@ namespace MyGit.ViewModels
             {
                 _isLoading = value;
                 OnPropertyChanged();
+            }
+        }
+
+
+        public DelegateCommand<Repository> OpenRepo
+        {
+            get
+            {
+                return new DelegateCommand<Repository>(repo =>
+                {
+                    App.Frame.Navigate(typeof(RepositoryPage), new RepositoryPage.RepositoryPageParameters
+                    {
+                        Name = repo.Name,
+                        Owner = repo.Owner.Login
+                    });
+                });
             }
         }
 

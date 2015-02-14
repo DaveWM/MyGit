@@ -13,7 +13,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MyGit.ViewModels;
-using Octokit;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -22,9 +21,9 @@ namespace MyGit.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class RepositoryPage : Page
     {
-        public MainPage()
+        public RepositoryPage()
         {
             this.InitializeComponent();
         }
@@ -36,12 +35,8 @@ namespace MyGit.Views
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-        }
-
-        private void RepoSelected(object sender, SelectionChangedEventArgs e)
-        {
-            var item = sender as ListViewItem;
-            (this.DataContext as MainViewModel).ReposViewModel.OpenRepo.Execute(e.AddedItems[0] as Repository);
+            var parameters = e.Parameter as RepositoryPageParameters;
+            this.DataContext = new RepositoryViewModel(parameters.Owner, parameters.Name);
         }
     }
 }

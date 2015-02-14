@@ -69,7 +69,8 @@
                         </ComboBox.Items>
                     </ComboBox>
                     <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
-                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}">
+                    <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}"
+                              SelectionMode="Single" SelectionChanged="RepoSelected">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -108,8 +109,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar DataContext="{Binding DataContext, ElementName=Page}">
-            <AppBarButton Label="Refresh" IsEnabled="{Binding IsLoading, Converter={StaticResource InvertBooleanConverter}}" 
-                                      Command="{Binding RefreshCommand, Mode=OneWay}" Margin="7,0,0,0"
+            <AppBarButton Label="Refresh" Command="{Binding RefreshCommand, Mode=OneWay}" Margin="7,0,0,0"
                                       Icon="Refresh" IsCompact="True" VerticalAlignment="Center"/>
             <AppBarButton Label="User Details" Icon="Contact" Command="{Binding GoToUserDetails}"/>
             <AppBarButton Icon="Undo" Label="Log Out" Command="{Binding Logout}"/>

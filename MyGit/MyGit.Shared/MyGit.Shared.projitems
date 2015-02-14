@@ -30,12 +30,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotificationsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserIssuesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserRepositoriesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RepositoryPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserDetailsPage.xaml.cs">
       <DependentUpon>UserDetailsPage.xaml</DependentUpon>
     </Compile>

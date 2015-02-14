@@ -63,8 +63,8 @@ namespace MyGit.ViewModels
         {
             IsLoading = true;
 
-            User = await _gitHubClient.User.Current();
             await Task.WhenAll(new List<Task> { NotificationsViewModel.Refresh(), NewsViewModel.Refresh(), ReposViewModel.Refresh(), IssuesViewModel.Refresh() });
+            User = await _gitHubClient.User.Current();
 
             IsLoading = false;
         }
@@ -73,7 +73,7 @@ namespace MyGit.ViewModels
         {
             get
             {
-                return new DelegateCommand(Refresh);
+                return new DelegateCommand(Refresh, () => IsLoading);
             }
         }
 
