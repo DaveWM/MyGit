@@ -6,8 +6,10 @@ using System.Text.RegularExpressions;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
+using Windows.ApplicationModel.Store;
 using Windows.Phone.UI.Input;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -122,7 +124,7 @@ namespace MyGit
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             RegisterBackgroundTask();
-
+            BegUserToBuyMe();
 #if DEBUG
             if (Debugger.IsAttached)
             {
@@ -180,6 +182,25 @@ namespace MyGit
 
             // Ensure the current window is active
             Window.Current.Activate();
+        }
+        private readonly LicenseInformation _licenseInfo = CurrentApp.LicenseInformation;
+        private void BegUserToBuyMe()
+        {
+            if (_licenseInfo.IsTrial)
+            {
+                var dialog =
+                    new MessageDialog(
+                        "You're currently using the trial version of MyGit. If you like it, why not buy it (or at least rate it)? I'm going to keep pestering you until you do :)",
+                        "Buy Me");
+                dialog.Commands.Add(new UICommand("ok, fine...", command =>
+                {
+                    Launcher.LaunchUriAsync(new Uri("ms-windows-store:navigate?appid=" + CurrentApp.AppId));
+                }));
+                dialog.Commands.Add(new UICommand("nope"));
+                dialog.DefaultCommandIndex = 0;
+                dialog.CancelCommandIndex = 1;
+                dialog.ShowAsync();
+            }
         }
 
 #if WINDOWS_PHONE_APP
