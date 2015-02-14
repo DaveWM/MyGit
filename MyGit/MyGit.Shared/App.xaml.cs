@@ -52,7 +52,7 @@ namespace MyGit
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
 
-            var appName = "MyGit"; 
+            var appName = "MyGit";
 #if WINDOWS_PHONE_APP
             appName = "MyGit_Phone";
 #endif
@@ -62,7 +62,7 @@ namespace MyGit
             Container.RegisterInstance<IGitHubClient>(_gitHubClient);
             _loginService = new LoginService();
             Container.RegisterInstance<ILoginService>(_loginService);
-            
+
             this.UnhandledException += async (s, ea) =>
             {
                 if (!NetworkInterface.GetIsNetworkAvailable())
@@ -129,7 +129,7 @@ namespace MyGit
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            
+
             Frame rootFrame = Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -191,7 +191,8 @@ namespace MyGit
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+            rootFrame.ContentTransitions = this.transitions ??
+                                           new TransitionCollection() {new NavigationThemeTransition()};
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
         }
 #endif
@@ -221,9 +222,12 @@ namespace MyGit
                 var responseUrl = wabArgs.WebAuthenticationResult.ResponseData;
                 var regex = new Regex(@"(?<=\?code=).*");
                 var code = regex.Match(responseUrl).Value;
-                await _loginService.SetTokenFromCode(code);
 
-                Frame.Navigate(typeof(MainPage));
+                if (!String.IsNullOrEmpty(code))
+                {
+                    await _loginService.SetTokenFromCode(code);
+                    Frame.Navigate(typeof (MainPage));
+                }
             }
 #endif
             base.OnActivated(args);
