@@ -1,0 +1,39 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyGit.Templates"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:octokit="using:Octokit"
+    mc:Ignorable="d">
+    <DataTemplate x:Key="PRTemplate">
+        <Grid d:DataContext="{d:DesignInstance octokit:PullRequest}" Margin="0,0,0,15" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,0,0,15">
+                <Run>#</Run><Run Text="{Binding Number}"></Run>
+                <Run> </Run>
+                <Run Text="{Binding Title}"></Run>
+            </TextBlock>
+            <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,0,5">
+                <Run Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter},ConverterParameter='dd/MM/yyyy'}" FontWeight="Light"></Run>
+                <Run> </Run>
+                <Run Text="{Binding Body}"></Run>
+            </TextBlock>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Ellipse Height="40" Width="40" Margin="0,0,0,0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding User.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock VerticalAlignment="Center" Text="{Binding User.Login}" Margin="7,0,0,0" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using MyGit.ViewModels;
 using MyGit.ViewModels.MainPage;
 using Octokit;
 
@@ -41,10 +28,9 @@ namespace MyGit.Views
         {
         }
 
-        private void RepoSelected(object sender, SelectionChangedEventArgs e)
+        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = sender as ListViewItem;
-            (this.DataContext as MainViewModel).ReposViewModel.OpenRepo.Execute(e.AddedItems[0] as Repository);
+            (this.DataContext as MainViewModel).ReposViewModel.OpenRepo.Execute(e.ClickedItem as Repository);
         }
     }
 }

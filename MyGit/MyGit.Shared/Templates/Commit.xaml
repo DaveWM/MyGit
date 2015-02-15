@@ -1,0 +1,32 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyGit.Templates"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:octokit="using:Octokit"
+    mc:Ignorable="d">
+    <DataTemplate x:Key="CommitTemplate">
+        <Grid d:DataContext="{d:DesignInstance octokit:GitHubCommit}" Margin="0,0,0,15" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding Commit.Message}" Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,0,0,10">
+            </TextBlock>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,5">
+                <Ellipse Height="40" Width="40" Margin="0,0,0,0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding Author.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock VerticalAlignment="Center" Text="{Binding Author.Login}" Margin="7,0,20,0" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+                <SymbolIcon Symbol="Message" VerticalAlignment="Center" Margin="0,0,5,0"></SymbolIcon>
+                <TextBlock Text="{Binding Commit.CommentCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

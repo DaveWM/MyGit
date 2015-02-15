@@ -33,6 +33,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\NotificationsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\UserIssuesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\UserRepositoriesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\BaseRepoViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryCommitsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryIssuesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryPullRequestsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDetailsPage\UserDetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
@@ -44,6 +48,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Templates\Commit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Templates\Issue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -53,6 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Templates\NotificationItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Templates\PullRequest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
