@@ -28,6 +28,8 @@ namespace MyGit.Views
         public MainPage()
         {
             this.InitializeComponent();
+
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         /// <summary>
