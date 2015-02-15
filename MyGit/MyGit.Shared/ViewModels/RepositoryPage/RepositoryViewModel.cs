@@ -24,11 +24,12 @@ namespace MyGit.ViewModels.RepositoryPage
         {
             _owner = owner;
             _name = name;
+
+            this.RefreshInternal();
         }
 
         public RepositoryViewModel()
         {
-            
         }
 
         public override async Task Refresh()

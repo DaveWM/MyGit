@@ -28,6 +28,11 @@ namespace MyGit.ViewModels.MainPage
             }
         }
 
+        public NotificationsViewModel()
+        {
+            this.RefreshInternal();
+        }
+
         public override async Task Refresh()
         {
             Notifications = null;

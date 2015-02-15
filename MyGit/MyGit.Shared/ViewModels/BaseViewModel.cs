@@ -32,11 +32,9 @@ namespace MyGit.ViewModels
         protected BaseViewModel()
         {
             GitHubClient = App.Container.Resolve<IGitHubClient>();
-
-            RefreshInternal();
         }
 
-        private async void RefreshInternal()
+        protected async void RefreshInternal()
         {
             IsLoading = true;
             await this.Refresh();

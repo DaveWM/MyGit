@@ -30,6 +30,8 @@ namespace MyGit.ViewModels.MainPage
             NewsViewModel = new NewsViewModel();
             ReposViewModel = new UserRepositoriesViewModel();
             IssuesViewModel = new UserIssuesViewModel();
+
+            this.RefreshInternal();
         }
 
         public override async Task Refresh()

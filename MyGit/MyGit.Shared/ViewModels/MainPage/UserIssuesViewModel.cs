@@ -15,6 +15,8 @@ namespace MyGit.ViewModels.MainPage
         {
             AssignedIssues = new ObservableCollection<Issue>();
             SubscribedIssues = new ObservableCollection<Issue>();
+
+            this.RefreshInternal();
         }
 
         public override async Task Refresh()
