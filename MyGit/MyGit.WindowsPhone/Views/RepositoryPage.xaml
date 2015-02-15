@@ -6,10 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:MyGit.ViewModels"
+    xmlns:repositoryPage="using:MyGit.ViewModels.RepositoryPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <viewModels:RepositoryViewModel></viewModels:RepositoryViewModel>
+        <repositoryPage:RepositoryViewModel></repositoryPage:RepositoryViewModel>
     </Page.DataContext>
     <StackPanel Orientation="Vertical" Margin="10,10,10,0"> 
         <ProgressBar IsIndeterminate="True" IsEnabled="True" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"></ProgressBar>

@@ -1,18 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Unity;
-using MyGit.Annotations;
-using MyGit.Views;
 using Octokit;
 
-namespace MyGit.ViewModels
+namespace MyGit.ViewModels.MainPage
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
         public NotificationsViewModel NotificationsViewModel { get; set; }
         public NewsViewModel NewsViewModel { get; set; }
@@ -31,49 +24,25 @@ namespace MyGit.ViewModels
             }
         }
 
-        private bool _isLoading;
-
-        public bool IsLoading
-        {
-            get
-            {
-                return _isLoading;
-            }
-            set
-            {
-                _isLoading = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private readonly IGitHubClient _gitHubClient;
-
         public MainViewModel()
         {
             NotificationsViewModel = new NotificationsViewModel();
             NewsViewModel = new NewsViewModel();
             ReposViewModel = new UserRepositoriesViewModel();
             IssuesViewModel = new UserIssuesViewModel();
-            _gitHubClient = App.Container.Resolve<IGitHubClient>();
-
-            Refresh();
         }
 
-        public async void Refresh()
+        public override async Task Refresh()
         {
-            IsLoading = true;
-
             await Task.WhenAll(new List<Task> { NotificationsViewModel.Refresh(), NewsViewModel.Refresh(), ReposViewModel.Refresh(), IssuesViewModel.Refresh() });
-            User = await _gitHubClient.User.Current();
-
-            IsLoading = false;
+            User = await GitHubClient.User.Current();
         }
 
         public DelegateCommand RefreshCommand
         {
             get
             {
-                return new DelegateCommand(Refresh, () => IsLoading);
+                return new DelegateCommand(() => Refresh(), () => IsLoading);
             }
         }
 
@@ -83,7 +52,7 @@ namespace MyGit.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    App.Frame.Navigate(typeof (UserDetailsPage));
+                    App.Frame.Navigate(typeof (Views.UserDetailsPage));
                 });
             }
         }
@@ -92,17 +61,8 @@ namespace MyGit.ViewModels
         {
             get { return new DelegateCommand(() =>
             {
-                App.Frame.Navigate(typeof (LoginPage));
+                App.Frame.Navigate(typeof (Views.LoginPage));
             });}
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -7,10 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:MyGit.ViewModels"
     xmlns:templates="using:MyGit.Templates"
+    xmlns:mainPage="using:MyGit.ViewModels.MainPage"
     mc:Ignorable="d"
     Name="Page">
     <Page.DataContext>
-        <viewModels:MainViewModel></viewModels:MainViewModel>
+        <mainPage:MainViewModel></mainPage:MainViewModel>
     </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>

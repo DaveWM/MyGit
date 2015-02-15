@@ -1,11 +1,8 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Microsoft.Practices.Prism.Commands;
+﻿using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Unity;
 using MyGit.Services;
-using MyGit.Views;
 
-namespace MyGit.ViewModels
+namespace MyGit.ViewModels.LoginPage
 {
     public class LoginViewModel
     {
@@ -24,7 +21,7 @@ namespace MyGit.ViewModels
                     await _loginService.Login();
                     // wp app will close and re-open, only continue if we're on windows desktop
 #if WINDOWS_APP
-                    App.Frame.Navigate(typeof(MainPage));
+                    App.Frame.Navigate(typeof(Views.MainPage));
 #endif
                 });
             }

@@ -26,14 +26,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Templates\NotificationItem.xaml.cs">
       <DependentUpon>NotificationItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NewsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NotificationsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDetailsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserIssuesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserRepositoriesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPage\LoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\NewsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\NotificationsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\UserIssuesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\UserRepositoriesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDetailsPage\UserDetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

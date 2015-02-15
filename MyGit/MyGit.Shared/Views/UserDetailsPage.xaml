@@ -6,9 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:MyGit.ViewModels"
+    xmlns:userDetailsPage="using:MyGit.ViewModels.UserDetailsPage"
     mc:Ignorable="d">
     <Page.DataContext>
-        <viewModels:UserDetailsViewModel></viewModels:UserDetailsViewModel>
+        <userDetailsPage:UserDetailsViewModel></userDetailsPage:UserDetailsViewModel>
     </Page.DataContext>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>

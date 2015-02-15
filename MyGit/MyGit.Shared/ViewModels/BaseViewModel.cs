@@ -4,40 +4,46 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Unity;
 using MyGit.Annotations;
 using Octokit;
 
 namespace MyGit.ViewModels
 {
-    public class UserDetailsViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
-        private readonly IGitHubClient _gitHubClient;
+        protected readonly IGitHubClient GitHubClient;
 
-        private User _user;
+        private bool _isLoading;
 
-        public User User
+        public bool IsLoading
         {
-            get { return _user; }
+            get
+            {
+                return _isLoading;
+            }
             set
             {
-                _user = value;
+                _isLoading = value;
                 OnPropertyChanged();
             }
         }
 
-        public UserDetailsViewModel()
+        protected BaseViewModel()
         {
-            _gitHubClient = App.Container.Resolve<IGitHubClient>();
+            GitHubClient = App.Container.Resolve<IGitHubClient>();
 
-            Refresh();
+            RefreshInternal();
         }
 
-        private async void Refresh()
+        private async void RefreshInternal()
         {
-            User = await _gitHubClient.User.Current();
+            IsLoading = true;
+            await this.Refresh();
+            IsLoading = false;
         }
+
+        public abstract Task Refresh();
 
         public event PropertyChangedEventHandler PropertyChanged;
 

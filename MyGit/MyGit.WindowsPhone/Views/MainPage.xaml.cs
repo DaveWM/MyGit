@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MyGit.ViewModels;
+using MyGit.ViewModels.MainPage;
 using Octokit;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556

@@ -7,7 +7,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Store;
+#if WINDOWS_PHONE_APP
 using Windows.Phone.UI.Input;
+#endif
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Popups;
@@ -80,6 +82,7 @@ namespace MyGit
                 }
             };
 
+#if WINDOWS_PHONE_APP
             HardwareButtons.BackPressed += (s, e) =>
             {
                 if (Frame == null || !Frame.CanGoBack) return;
@@ -87,6 +90,7 @@ namespace MyGit
                 e.Handled = true;
                 Frame.GoBack();
             };
+#endif
         }
 
 

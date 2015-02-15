@@ -6,12 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:MyGit.ViewModels"
+    xmlns:mainPage="using:MyGit.ViewModels.MainPage"
     mc:Ignorable="d">
     <Grid>
         <Hub>
             <HubSection Header="Notifications">
                 <HubSection.DataContext>
-                    <viewModels:NotificationsViewModel></viewModels:NotificationsViewModel>
+                    <mainPage:NotificationsViewModel></mainPage:NotificationsViewModel>
                 </HubSection.DataContext>
                 <DataTemplate>
                     <StackPanel>
