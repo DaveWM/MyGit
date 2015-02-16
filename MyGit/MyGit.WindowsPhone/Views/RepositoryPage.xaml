@@ -28,7 +28,11 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10,10,10,0">
             <ProgressBar IsIndeterminate="True" IsEnabled="True" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"></ProgressBar>
-            <TextBlock Text="{Binding Repository.Name}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,0,0,10"></TextBlock>
+            <TextBlock Text="{Binding Repository.Name}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,0,0,5"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <SymbolIcon Symbol="SolidStar" VerticalAlignment="Center" Margin="0,0,5,0" Visibility="{Binding IsStarred, Converter={StaticResource BooleanToVisibilityConverter}}"></SymbolIcon>
+                <SymbolIcon Symbol="Pin" VerticalAlignment="Center" Visibility="{Binding IsWatched, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                 <Ellipse Height="40" Width="40">
                     <Ellipse.Fill>
@@ -84,4 +88,12 @@
             </PivotItem>
             </Pivot>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="SolidStar" Label="Star" Command="{Binding ToggleStarred}" Visibility="{Binding IsStarred, Converter={StaticResource InverseBooleanToVisibilityConverter}}"></AppBarButton>
+            <AppBarButton Icon="UnFavorite" Label="Unstar" Command="{Binding ToggleStarred}" Visibility="{Binding IsStarred, Converter={StaticResource BooleanToVisibilityConverter}}"></AppBarButton>
+            <AppBarButton Icon="Pin" Label="Watch" Command="{Binding ToggleWatch}" Visibility="{Binding IsWatched, Converter={StaticResource InverseBooleanToVisibilityConverter}}"></AppBarButton>
+            <AppBarButton Icon="UnPin"  Label="Unwatch" Command="{Binding ToggleWatch}" Visibility="{Binding IsWatched, Converter={StaticResource BooleanToVisibilityConverter}}"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

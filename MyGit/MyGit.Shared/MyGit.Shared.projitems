@@ -17,6 +17,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DateFormatConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InvertBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToUriConverter.cs" />
