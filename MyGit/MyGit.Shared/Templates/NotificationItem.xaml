@@ -26,7 +26,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1" Style="{ThemeResource SubheaderTextBlockStyle}" Foreground="White"
                        Margin="0,5,5,5" Text="{Binding Repository.FullName}" FontWeight="Bold">
             </TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding }"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Reason}"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}">
                 <Run FontWeight="Light" Text="{Binding UpdatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
                 <Run Text="{Binding Subject.Type}"></Run>

@@ -1,7 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using MyGit.ViewModels.MainPage;
-using Octokit;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -26,11 +24,6 @@ namespace MyGit.Views
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-        }
-
-        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
-        {
-            (this.DataContext as MainViewModel).ReposViewModel.OpenRepo.Execute(e.ClickedItem as Repository);
         }
     }
 }

@@ -2,11 +2,8 @@
     x:Class="MyGit.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MyGit.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="using:MyGit.ViewModels"
-    xmlns:templates="using:MyGit.Templates"
     xmlns:mainPage="using:MyGit.ViewModels.MainPage"
     mc:Ignorable="d"
     Name="Page">
@@ -71,7 +68,7 @@
                     </ComboBox>
                     <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
                     <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}"
-                              SelectionMode="Single" ItemClick="ListViewBase_OnItemClick" IsItemClickEnabled="True">
+                              SelectionMode="Single">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
