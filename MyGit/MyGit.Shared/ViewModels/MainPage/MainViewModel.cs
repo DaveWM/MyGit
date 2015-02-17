@@ -32,12 +32,18 @@ namespace MyGit.ViewModels.MainPage
             IssuesViewModel = new UserIssuesViewModel();
 
             this.Refresh();
+
+            GetCurrentUser();
+        }
+
+        private async void GetCurrentUser()
+        {
+            User = await GitHubClient.User.Current();
         }
 
         protected override async Task RefreshInternal()
         {
             await Task.WhenAll(new List<Task> { NotificationsViewModel.Refresh(), NewsViewModel.Refresh(), ReposViewModel.Refresh(), IssuesViewModel.Refresh() });
-            User = await GitHubClient.User.Current();
         }
 
         public DelegateCommand RefreshCommand
