@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:MyGit.ViewModels"
     xmlns:repositoryPage="using:MyGit.ViewModels.RepositoryPage"
+    xmlns:behaviours="using:MyGit.Behaviours"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
@@ -65,8 +66,24 @@
                             <Run>Last Updated on </Run>
                             <Run Text="{Binding Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
                         </TextBlock>
-                        <TextBlock Text="{Binding Repository.Description}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
-                    </StackPanel>
+                        <TextBlock Text="{Binding Repository.Description}" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,0,15"></TextBlock>
+                    <Button Visibility="{Binding HasReadme, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Button.Flyout>
+                            <Flyout Placement="Full">
+                                <Flyout.Content>
+                                    <Border BorderThickness="2" BorderBrush="LightGray" Margin="10">
+                                        <Grid>
+                                            <WebView Source="{Binding ReadmeUri}" DefaultBackgroundColor="LightGray"></WebView>
+                                        </Grid>
+                                    </Border>
+                                </Flyout.Content>
+                            </Flyout>
+                        </Button.Flyout>
+                        <Button.Content>
+                            View Readme
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
                 </PivotItem>
             <PivotItem Header="Issues" DataContext="{Binding IssuesViewModel}">
                 <Grid>

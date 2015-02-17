@@ -16,6 +16,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ItemClickBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\WebViewBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DateFormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanToVisibilityConverter.cs" />

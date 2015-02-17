@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Commands;
 using Octokit;
 
@@ -45,6 +45,28 @@ namespace MyGit.ViewModels.RepositoryPage
             }
         }
 
+        private Uri _readmeUri;
+
+        public Uri ReadmeUri
+        {
+            get { return _readmeUri; }
+            set
+            {
+                _readmeUri = value;
+                OnPropertyChanged();
+                OnPropertyChanged("HasReadme");
+            }
+        }
+
+        public bool HasReadme
+        {
+            get { return ReadmeUri != null; }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public RepositoryIssuesViewModel IssuesViewModel { get; set; }
         public RepositoryPullRequestsViewModel PullRequestsViewModel { get; set; }
         public RepositoryCommitsViewModel CommitsViewModel { get; set; }
@@ -72,6 +94,15 @@ namespace MyGit.ViewModels.RepositoryPage
         {
             Repository = await GitHubClient.Repository.Get(_owner, _name);
             await CheckSubscriptionStatus();
+            try
+            {
+                var readme = await GitHubClient.Repository.Content.GetReadme(_owner, _name);
+                ReadmeUri = readme.HtmlUrl;
+            }
+            catch (Exception e)
+            {
+                ReadmeUri = null;
+            }
             await  Task.WhenAll(IssuesViewModel.Refresh(), PullRequestsViewModel.Refresh(), CommitsViewModel.Refresh());
         }
 
