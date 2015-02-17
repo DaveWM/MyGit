@@ -19,21 +19,12 @@ namespace MyGit.ViewModels.MainPage
                 OnPropertyChanged();
             }
         }
-
-        public DelegateCommand RefreshCommand
-        {
-            get
-            {
-                return new DelegateCommand(()=> Refresh());
-            }
-        }
-
+        
         public NotificationsViewModel()
         {
-            this.RefreshInternal();
         }
 
-        public override async Task Refresh()
+        protected override async Task RefreshInternal()
         {
             Notifications = null;
 

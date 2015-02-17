@@ -20,10 +20,9 @@ namespace MyGit.ViewModels.RepositoryPage
         } 
         public RepositoryCommitsViewModel(string owner, string repo) : base(owner, repo)
         {
-            RefreshInternal();
         }
 
-        public async override Task Refresh()
+        protected async override Task RefreshInternal()
         {
             Commits = await GitHubClient.Repository.Commits.GetAll(Owner, Repo, new CommitRequest
             {

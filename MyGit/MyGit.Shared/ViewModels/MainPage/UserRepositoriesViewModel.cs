@@ -20,11 +20,9 @@ namespace MyGit.ViewModels.MainPage
             OwnedRepos = new ObservableCollection<Repository>();
             StarredRepos = new ObservableCollection<Repository>();
             WatchedRepos = new ObservableCollection<Repository>();
-
-            this.RefreshInternal();
         }
 
-        public override async Task Refresh()
+        protected override async Task RefreshInternal()
         {
             OwnedRepos.Clear();
             StarredRepos.Clear();

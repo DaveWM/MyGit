@@ -90,7 +90,7 @@ namespace MyGit.ViewModels.RepositoryPage
         {
         }
 
-        public override async Task Refresh()
+        protected override async Task RefreshInternal()
         {
             Repository = await GitHubClient.Repository.Get(_owner, _name);
             await CheckSubscriptionStatus();
@@ -103,7 +103,7 @@ namespace MyGit.ViewModels.RepositoryPage
             {
                 ReadmeUri = null;
             }
-            await  Task.WhenAll(IssuesViewModel.Refresh(), PullRequestsViewModel.Refresh(), CommitsViewModel.Refresh());
+            await Task.WhenAll(IssuesViewModel.Refresh(), PullRequestsViewModel.Refresh(), CommitsViewModel.Refresh());
         }
 
         public async Task CheckSubscriptionStatus()

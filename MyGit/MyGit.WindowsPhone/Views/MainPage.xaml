@@ -107,8 +107,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar DataContext="{Binding DataContext, ElementName=Page}">
-            <AppBarButton Label="Refresh" Command="{Binding RefreshCommand, Mode=OneWay}" Margin="7,0,0,0"
-                                      Icon="Refresh" IsCompact="True" VerticalAlignment="Center"/>
+            <AppBarButton Label="Refresh" Command="{Binding RefreshCommand, Mode=OneWay}" Icon="Refresh"/>
             <AppBarButton Label="User Details" Icon="Contact" Command="{Binding GoToUserDetails}"/>
             <AppBarButton Icon="Undo" Label="Log Out" Command="{Binding Logout}"/>
         </CommandBar>

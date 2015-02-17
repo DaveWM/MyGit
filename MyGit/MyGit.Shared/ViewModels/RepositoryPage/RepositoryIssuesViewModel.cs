@@ -22,16 +22,15 @@ namespace MyGit.ViewModels.RepositoryPage
                 _issues = value;
                 OnPropertyChanged();
             }
-        } 
+        }
 
-        public async override Task Refresh()
+        protected async override Task RefreshInternal()
         {
             Issues = (await GitHubClient.Issue.GetForRepository(this.Owner, this.Repo)).OrderByDescending(i => i.CreatedAt);
         }
 
         public RepositoryIssuesViewModel(string owner, string repo) : base(owner,repo)
         {
-            RefreshInternal();
         }
     }
 }

@@ -31,10 +31,10 @@ namespace MyGit.ViewModels.MainPage
             ReposViewModel = new UserRepositoriesViewModel();
             IssuesViewModel = new UserIssuesViewModel();
 
-            this.RefreshInternal();
+            this.Refresh();
         }
 
-        public override async Task Refresh()
+        protected override async Task RefreshInternal()
         {
             await Task.WhenAll(new List<Task> { NotificationsViewModel.Refresh(), NewsViewModel.Refresh(), ReposViewModel.Refresh(), IssuesViewModel.Refresh() });
             User = await GitHubClient.User.Current();
@@ -44,7 +44,7 @@ namespace MyGit.ViewModels.MainPage
         {
             get
             {
-                return new DelegateCommand(() => Refresh(), () => IsLoading);
+                return new DelegateCommand(() => Refresh());
             }
         }
 

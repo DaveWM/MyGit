@@ -19,10 +19,10 @@ namespace MyGit.ViewModels.UserDetailsPage
 
         public UserDetailsViewModel()
         {
-            this.RefreshInternal();
+            this.Refresh();
         }
 
-        public override async Task Refresh()
+        protected override async Task RefreshInternal()
         {
             User = await GitHubClient.User.Current();
         }

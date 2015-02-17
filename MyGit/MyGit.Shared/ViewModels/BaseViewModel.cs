@@ -29,19 +29,19 @@ namespace MyGit.ViewModels
             }
         }
 
-        protected BaseViewModel()
+         protected BaseViewModel()
         {
             GitHubClient = App.Container.Resolve<IGitHubClient>();
         }
 
-        protected async void RefreshInternal()
+        public async Task Refresh()
         {
             IsLoading = true;
-            await this.Refresh();
+            await this.RefreshInternal();
             IsLoading = false;
         }
 
-        public abstract Task Refresh();
+        protected abstract Task RefreshInternal();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
