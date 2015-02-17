@@ -43,8 +43,10 @@
                 <TextBlock VerticalAlignment="Center" Text="{Binding Repository.Owner.Login}" Margin="7,0,0,0" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
             </StackPanel>
             <TextBlock Margin="0,0,0,5" FontWeight="Light" Style="{ThemeResource BodyTextBlockStyle}" Visibility="{Binding Repository.Fork, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Run>Forked from </Run>
-            <Run Text="{Binding Repository.Parent.FullName}"></Run>
+                <Run>Forked from </Run>
+                <Hyperlink x:Name="ForkedFromLink" Click="ForkedFromLink_OnClick">
+                    <Run Text="{Binding Repository.Parent.FullName}"></Run>
+                </Hyperlink>
             </TextBlock>
             <StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Left">
                 <SymbolIcon Symbol="SolidStar" VerticalAlignment="Center" Margin="0,0,5,0"></SymbolIcon>
