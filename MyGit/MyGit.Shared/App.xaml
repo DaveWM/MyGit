@@ -13,6 +13,7 @@
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
             <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"></converters:InverseBooleanToVisibilityConverter>
             <converters:ToStringConverter x:Key="ToStringConverter"></converters:ToStringConverter>
+            <converters:NotificationReasonConverter x:Key="NotificationReasonConverter"></converters:NotificationReasonConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
