@@ -3,10 +3,10 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:o="using:Octokit"
-                    xmlns:converters="using:MyGit.Converters"
+                    xmlns:behaviours="using:MyGit.Behaviours"
                     mc:Ignorable="d">
     <DataTemplate x:Key="NotificationItemTemplate">
-        <Grid d:DataContext="{d:DesignInstance o:Notification}" Margin="0,0,0,10">
+        <Grid d:DataContext="{d:DesignInstance o:Notification}" Margin="0,0,0,10" behaviours:ItemClickBehaviour.ShouldGoToNotification="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>

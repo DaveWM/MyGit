@@ -19,10 +19,6 @@ namespace MyGit.ViewModels.MainPage
                 OnPropertyChanged();
             }
         }
-        
-        public NotificationsViewModel()
-        {
-        }
 
         protected override async Task RefreshInternal()
         {
