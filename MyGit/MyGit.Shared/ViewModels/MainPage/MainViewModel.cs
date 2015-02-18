@@ -65,6 +65,17 @@ namespace MyGit.ViewModels.MainPage
             }
         }
 
+        public DelegateCommand GoToSearch
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    App.Frame.Navigate(typeof(Views.SearchPage));
+                });
+            }
+        }
+
         public DelegateCommand Logout
         {
             get { return new DelegateCommand(() =>

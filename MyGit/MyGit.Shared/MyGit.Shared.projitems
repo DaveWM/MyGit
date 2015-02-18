@@ -39,11 +39,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryIssuesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryPullRequestsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchPage\RepoSearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDetailsPage\UserDetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\RepositoryPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserDetailsPage.xaml.cs">
       <DependentUpon>UserDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -74,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
