@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.UI.Core;
+using Microsoft.Practices.Prism.Commands;
+using Octokit;
+
+namespace MyGit.ViewModels
+{
+    public class RepoSearchViewModel : BaseViewModel
+    {
+        private string _searchString = String.Empty;
+
+        public string SearchString
+        {
+            get { return _searchString; }
+            set
+            {
+                _searchString = value;
+                OnPropertyChanged();
+                Refresh();
+            }
+        }
+
+        public DelegateCommand SearchCommand
+        {
+            get
+            {
+                return new DelegateCommand(() => this.Refresh());
+            }
+        }
+
+        public DelegateCommand<KeyEventArgs> OnKeyPress
+        {
+            get
+            {
+                return new DelegateCommand<KeyEventArgs>(ea =>
+                {
+                    var a = 1;
+                });
+            }
+        }
+
+        private IEnumerable<Repository> _searchResults;
+
+        public IEnumerable<Repository> SearchResults
+        {
+            get { return _searchResults; }
+            set
+            {
+                _searchResults = value;
+                OnPropertyChanged();
+            }
+        } 
+
+        protected async override Task RefreshInternal()
+        {
+            if (!String.IsNullOrWhiteSpace(SearchString))
+            {
+                var results = await GitHubClient.Search.SearchRepo(new SearchRepositoriesRequest(this.SearchString));
+                SearchResults = results.Items;
+            }
+        }
+    }
+}

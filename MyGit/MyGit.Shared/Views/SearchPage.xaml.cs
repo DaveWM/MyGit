@@ -18,6 +18,8 @@ namespace MyGit.Views
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+
+            this.Loaded += (s, ea) => this.SearchBox.Focus(FocusState.Programmatic);
         }
 
         private void SearchBox_OnKeyUp(object sender, KeyRoutedEventArgs e)
