@@ -7,28 +7,26 @@
     xmlns:octokit="using:Octokit"
     mc:Ignorable="d">
     <DataTemplate x:Key="IssueCommentTemplate">
-        <Border BorderBrush="LightGray" BorderThickness="3,0,0,0"  Margin="0,0,0,12">
-            <Grid d:DataContext="{d:DesignInstance octokit:IssueComment}" Margin="7,0,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}}"
-                           Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light"></TextBlock>
-                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Text="{Binding User.Login}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
-                    <Ellipse Height="40" Width="40" Margin="7,0,0,0">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding User.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                </StackPanel>
-                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Body}" Margin="0,5,0,0"></TextBlock>
-            </Grid>
-        </Border>
+        <Grid d:DataContext="{d:DesignInstance octokit:IssueComment}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}}"
+                           Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light" VerticalAlignment="Center"></TextBlock>
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="{Binding User.Login}" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+                <Ellipse Height="40" Width="40" Margin="7,0,0,0">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding User.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </StackPanel>
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Body}" Margin="0,5,0,0"></TextBlock>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>

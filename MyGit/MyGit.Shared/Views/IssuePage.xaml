@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:issuePage="using:MyGit.ViewModels.IssuePage"
     xmlns:templates="using:MyGit.Templates"
+    xmlns:gregstoll="using:Gregstoll"
     mc:Ignorable="d">
     <Page.DataContext>
         <issuePage:IssueViewModel></issuePage:IssueViewModel>
@@ -34,46 +35,62 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{ThemeResource SubheaderTextBlockStyle}" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,0,0,10">
+                <TextBlock Grid.Row="0" Style="{ThemeResource HeaderTextBlockStyle}" FontWeight="Bold" TextWrapping="WrapWholeWords" 
+                           Margin="0,0,0,15" FontSize="45">
                     <Run>#</Run><Run Text="{Binding Issue.Number}"></Run>
                     <Run Text="{Binding Issue.Title}"></Run>
+                    <Run> (</Run><Run Text="{Binding Issue.State}"></Run><Run>)</Run>
                 </TextBlock>
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Bold" Text="{Binding Issue.State}"></TextBlock>
-                    <GridView ItemsSource="{Binding Issue.Labels}">
-                    <GridView.ItemTemplate>
+                <ListView Grid.Row="1" ItemsSource="{Binding Issue.Labels}">
+                    <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Background="{Binding Color,Converter={StaticResource ColourStringConverter}}" Margin="8">
-                                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Name}" Margin="5" Foreground="Black"></TextBlock>
+                                <TextBlock TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Name}" Margin="5" Foreground="Black"></TextBlock>
                             </Grid>
                         </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
-                </StackPanel>
-                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="2">
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <gregstoll:UniversalWrapPanel Orientation="Horizontal"></gregstoll:UniversalWrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="2" Margin="0,5,0,5">
                     <Run>Created </Run>
                     <Run Text="{Binding Issue.CreatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
                     <Run>by</Run>
                     <Run Text="{Binding Issue.User.Login}"></Run>
                 </TextBlock>
-                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="3" Visibility="{Binding Issue.Assignee, Converter={StaticResource VisibleIfNotNullConverter}}">
+                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="3" Visibility="{Binding Issue.Assignee, Converter={StaticResource VisibleIfNotNullConverter}}" Margin="0,5,0,5">
                     <Run>Assigned to</Run>
                     <Run Text="{Binding Issue.Assignee.Login}"></Run>
                 </TextBlock>
-                <TextBlock Grid.Row="4" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Issue.Body}"></TextBlock>
-                <TextBlock Grid.Row="5"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,5,0,10">
+                <TextBlock Grid.Row="4"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5" FontWeight="Bold">
+                    Body
+                </TextBlock>
+                <TextBlock Grid.Row="5" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Issue.Body}" Margin="0,10,0,10"></TextBlock>
+                <TextBlock Grid.Row="6"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5" FontWeight="Bold">
                     Recent History
                 </TextBlock>
-                <ListView Grid.Row="6" ItemsSource="{Binding IssueHistory}">
+                <ListView Grid.Row="7" ItemsSource="{Binding IssueHistory}">
                     <ListView.ItemTemplateSelector>
-                        <templates:IssueHistoryTemplateSelector Event="{StaticResource EventTemplate}" Comment="{StaticResource IssueCommentTemplate}">
+                        <templates:IssueHistoryTemplateSelector Comment="{StaticResource IssueCommentTemplate}">
+                            <templates:IssueHistoryTemplateSelector.Event>
+                                <DataTemplate>
+                                    <Border BorderBrush="LightGray" BorderThickness="3,0,0,0"  Margin="20,0,0,0">
+                                        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource EventTemplate}"></ContentControl>
+                                    </Border>
+                                </DataTemplate>
+                            </templates:IssueHistoryTemplateSelector.Event>
                         </templates:IssueHistoryTemplateSelector>
                     </ListView.ItemTemplateSelector>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0,10,0,10"></Setter>
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>

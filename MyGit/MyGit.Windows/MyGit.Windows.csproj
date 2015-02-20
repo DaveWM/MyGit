@@ -157,6 +157,9 @@
     <Reference Include="Octokit">
       <HintPath>..\..\packages\Octokit.0.6.2\lib\netcore45\Octokit.dll</HintPath>
     </Reference>
+    <Reference Include="UniversalWrapPanel">
+      <HintPath>..\..\packages\UniversalWrapPanel.1.0.0\lib\netcore451\UniversalWrapPanel.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\MainPage.xaml">

@@ -134,6 +134,9 @@
     <Reference Include="Octokit">
       <HintPath>..\..\packages\Octokit.0.6.2\lib\portable-net45+wp80+win+wpa81\Octokit.dll</HintPath>
     </Reference>
+    <Reference Include="UniversalWrapPanel">
+      <HintPath>..\..\packages\UniversalWrapPanel.1.0.0\lib\wpa81\UniversalWrapPanel.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -7,15 +7,18 @@
     xmlns:octokit="using:Octokit"
     mc:Ignorable="d">
     <DataTemplate x:Key="EventTemplate">
-        <Border BorderBrush="LightGray" BorderThickness="3,0,0,0"  Margin="0,0,0,12">
-            <Grid d:DataContext="{d:DesignInstance octokit:EventInfo}" Margin="7,0,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}}"></TextBlock>
-                <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}" Margin="7,0,0,0" Text="{Binding Converter={StaticResource EventToStringConverter}}"></TextBlock>
-            </Grid>
-        </Border>
+        <Grid d:DataContext="{d:DesignInstance octokit:EventInfo}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <SymbolIcon Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"  Symbol="Important" VerticalAlignment="Center" Margin="0,0,3,0"></SymbolIcon>
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}}"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}" Margin="7,0,0,0" Text="{Binding Converter={StaticResource EventToStringConverter}}"></TextBlock>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>
