@@ -37,8 +37,14 @@ namespace MyGit.ViewModels
         public async Task Refresh()
         {
             IsLoading = true;
-            await this.RefreshInternal();
-            IsLoading = false;
+            try
+            {
+                await this.RefreshInternal();
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         protected abstract Task RefreshInternal();
