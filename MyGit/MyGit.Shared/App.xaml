@@ -14,6 +14,9 @@
             <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"></converters:InverseBooleanToVisibilityConverter>
             <converters:ToStringConverter x:Key="ToStringConverter"></converters:ToStringConverter>
             <converters:NotificationReasonConverter x:Key="NotificationReasonConverter"></converters:NotificationReasonConverter>
+            <converters:ColourStringConverter x:Key="ColourStringConverter"></converters:ColourStringConverter>
+            <converters:EventToStringConverter x:Key="EventToStringConverter"></converters:EventToStringConverter>
+            <converters:VisibleIfNotNullConverter x:Key="VisibleIfNotNullConverter"></converters:VisibleIfNotNullConverter>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

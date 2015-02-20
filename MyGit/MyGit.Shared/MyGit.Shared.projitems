@@ -18,16 +18,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ItemClickBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\WebViewBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ColourStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DateFormatConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\EventToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotificationReasonConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ToStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InvertBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToUriConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UnreadStatusConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibleIfNotNullConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NonCachedHttpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\LoginServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Templates\IssueHistoryTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IssuePage\IssueViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPage\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\NewsViewModel.cs" />
@@ -41,6 +46,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchPage\RepoSearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDetailsPage\UserDetailsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\IssuePage.xaml.cs">
+      <DependentUpon>IssuePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -57,7 +65,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Templates\Event.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Templates\Issue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Templates\IssueComment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -74,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Templates\Repository.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\IssuePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

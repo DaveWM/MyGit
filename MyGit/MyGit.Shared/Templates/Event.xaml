@@ -1,0 +1,21 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyGit.Templates"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:octokit="using:Octokit"
+    mc:Ignorable="d">
+    <DataTemplate x:Key="EventTemplate">
+        <Border BorderBrush="LightGray" BorderThickness="3,0,0,0"  Margin="0,0,0,12">
+            <Grid d:DataContext="{d:DesignInstance octokit:EventInfo}" Margin="7,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Bold" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
+                <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}" Margin="7,0,0,0" Text="{Binding Converter={StaticResource EventToStringConverter}}"></TextBlock>
+            </Grid>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>
