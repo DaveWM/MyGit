@@ -62,11 +62,11 @@
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="0,0,0,5" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light">
                             <Run>Created on </Run>
-                            <Run Text="{Binding Repository.CreatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
+                            <Run Text="{Binding Repository.CreatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
                         </TextBlock>
                         <TextBlock Margin="0,0,0,15" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light">
                             <Run>Last Updated on </Run>
-                            <Run Text="{Binding Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
+                            <Run Text="{Binding Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
                         </TextBlock>
                         <TextBlock Text="{Binding Repository.Description}" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,0,15"></TextBlock>
                     <Button Visibility="{Binding HasReadme, Converter={StaticResource BooleanToVisibilityConverter}}">

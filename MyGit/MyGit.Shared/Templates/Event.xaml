@@ -13,7 +13,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Bold" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
+                <TextBlock Grid.Row="0" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}}"></TextBlock>
                 <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}" Margin="7,0,0,0" Text="{Binding Converter={StaticResource EventToStringConverter}}"></TextBlock>
             </Grid>
         </Border>

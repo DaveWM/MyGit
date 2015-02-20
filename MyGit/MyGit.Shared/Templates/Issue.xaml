@@ -22,7 +22,7 @@
                 <Run Text="{Binding Title}"></Run>
             </TextBlock>
             <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}">
-                <Run FontWeight="Light" Text="{Binding UpdatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
+                <Run FontWeight="Light" Text="{Binding UpdatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
                 <Run> </Run>
                 <Run Text="{Binding Body}"></Run>
             </TextBlock>

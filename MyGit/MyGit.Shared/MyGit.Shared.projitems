@@ -28,6 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringToUriConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\UnreadStatusConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\VisibleIfNotNullConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NonCachedHttpClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\LoginServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Templates\IssueHistoryTemplateSelector.cs" />

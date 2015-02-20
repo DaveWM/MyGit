@@ -10,10 +10,7 @@ namespace MyGit.Converters
             if (value == null)
                 return null;
 
-            if (parameter == null)
-                return value;
-
-            return DateTime.Parse(value.ToString()).ToString((string) parameter);
+            return DateTime.Parse(value.ToString()).ToGithubDate();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,

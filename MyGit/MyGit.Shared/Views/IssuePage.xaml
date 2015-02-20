@@ -36,7 +36,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{ThemeResource HeaderTextBlockStyle}" TextWrapping="WrapWholeWords" Margin="0,0,0,10">
+                <TextBlock Grid.Row="0" Style="{ThemeResource SubheaderTextBlockStyle}" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,0,0,10">
                     <Run>#</Run><Run Text="{Binding Issue.Number}"></Run>
                     <Run Text="{Binding Issue.Title}"></Run>
                 </TextBlock>
@@ -53,8 +53,8 @@
                     </GridView>
                 </StackPanel>
                 <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="2">
-                    <Run>Created on</Run>
-                    <Run Text="{Binding Issue.CreatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
+                    <Run>Created </Run>
+                    <Run Text="{Binding Issue.CreatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
                     <Run>by</Run>
                     <Run Text="{Binding Issue.User.Login}"></Run>
                 </TextBlock>
