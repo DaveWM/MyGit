@@ -33,6 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\LoginServiceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Templates\IssueHistoryTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IssuePage\IssueHistoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IssuePage\IssueViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginPage\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\MainViewModel.cs" />
@@ -118,5 +119,6 @@
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Images\eye_icon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\fork.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\repo.png" />
   </ItemGroup>
 </Project>

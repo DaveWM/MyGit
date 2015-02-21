@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.Practices.Prism.Commands;
 using Octokit;
 
 namespace MyGit.ViewModels.IssuePage
@@ -11,6 +9,29 @@ namespace MyGit.ViewModels.IssuePage
         private readonly int _number;
         private readonly string _repoName;
         private readonly string _owner;
+
+        public string RepoFullName
+        {
+            get
+            {
+                return string.Format("{0}/{1}", _owner, _repoName);
+            }
+        }
+
+        public DelegateCommand GoToRepoCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    App.Frame.Navigate(typeof(Views.RepositoryPage), new Views.RepositoryPage.RepositoryPageParameters
+                    {
+                        Name = _repoName,
+                        Owner = _owner
+                    });
+                });
+            }
+        }
 
         private Issue _issue;
 
@@ -24,44 +45,17 @@ namespace MyGit.ViewModels.IssuePage
             }
         }
 
-        private IEnumerable<IssueComment> _comments;
+        private IssueHistoryViewModel _historyViewModel;
 
-        public IEnumerable<IssueComment> Comments
+        public IssueHistoryViewModel HistoryViewModel
         {
-            get
-            {
-                return _comments;
-            }
+            get { return _historyViewModel; }
             set
             {
-                _comments = value;
+                _historyViewModel = value;
                 OnPropertyChanged();
             }
         }
-
-        private IEnumerable<EventInfo> _issueEvents;
-
-        public IEnumerable<EventInfo> IssueEvents
-        {
-            get { return _issueEvents; }
-            set
-            {
-                _issueEvents = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private IEnumerable<object> _issueHistory;
-
-        public IEnumerable<object> IssueHistory
-        {
-            get { return _issueHistory; }
-            set
-            {
-                _issueHistory = value;
-                OnPropertyChanged();
-            }
-        } 
 
          public IssueViewModel()
          {
@@ -73,28 +67,14 @@ namespace MyGit.ViewModels.IssuePage
             _number = number;
             _owner = owner;
 
+            HistoryViewModel = new IssueHistoryViewModel(owner, repoName, number);
+
             Refresh();
         }
         protected async override Task RefreshInternal()
         {
             Issue = await GitHubClient.Issue.Get(_owner, _repoName, _number);
-            Comments = await GitHubClient.Issue.Comment.GetForIssue(_owner, _repoName, _number);
-            IssueEvents = await GitHubClient.Issue.Events.GetForIssue(_owner, _repoName, _number);
-
-            IssueHistory = Comments.Select(c => new
-            {
-                date = c.CreatedAt,
-                item = (object)c
-            })
-                .Union(IssueEvents.Select(i => new
-                {
-                    date = i.CreatedAt,
-                    item = (object)i
-                }))
-                .OrderByDescending(h => h.date)
-                .Take(100)
-                .Reverse()
-                .Select(h => h.item);
+            await HistoryViewModel.Refresh();
         }
     }
 }

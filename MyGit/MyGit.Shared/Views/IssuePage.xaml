@@ -36,6 +36,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Style="{ThemeResource HeaderTextBlockStyle}" FontWeight="Bold" TextWrapping="WrapWholeWords" 
@@ -58,24 +59,27 @@
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                 </ListView>
-                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="2" Margin="0,5,0,5">
+                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="2" Margin="0,5,0,5" Text="{Binding RepoFullName}">
+                </TextBlock>
+                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="3" Margin="0,5,0,5">
                     <Run>Created </Run>
                     <Run Text="{Binding Issue.CreatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
                     <Run>by</Run>
                     <Run Text="{Binding Issue.User.Login}"></Run>
                 </TextBlock>
-                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="3" Visibility="{Binding Issue.Assignee, Converter={StaticResource VisibleIfNotNullConverter}}" Margin="0,5,0,5">
+                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="4" Visibility="{Binding Issue.Assignee, Converter={StaticResource VisibleIfNotNullConverter}}" Margin="0,5,0,5">
                     <Run>Assigned to</Run>
                     <Run Text="{Binding Issue.Assignee.Login}"></Run>
                 </TextBlock>
-                <TextBlock Grid.Row="4"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5" FontWeight="Bold">
+                <TextBlock Grid.Row="5"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5" FontWeight="Bold">
                     Description
                 </TextBlock>
-                <TextBlock Grid.Row="5" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Issue.Body}" Margin="0,10,0,10"></TextBlock>
-                <TextBlock Grid.Row="6"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5" FontWeight="Bold">
+                <TextBlock Grid.Row="6" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Issue.Body}" Margin="0,10,0,10"></TextBlock>
+                <TextBlock Grid.Row="7"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5" FontWeight="Bold">
                     Recent History
                 </TextBlock>
-                <ListView Grid.Row="7" ItemsSource="{Binding IssueHistory}">
+                <ProgressRing Margin="0,20,0,0" Grid.Row="8" IsActive="{Binding HistoryViewModel.IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                <ListView Grid.Row="8" ItemsSource="{Binding HistoryViewModel.IssueHistory}">
                     <ListView.ItemTemplateSelector>
                         <templates:IssueHistoryTemplateSelector Comment="{StaticResource CommentTemplate}">
                             <templates:IssueHistoryTemplateSelector.Event>
@@ -97,4 +101,13 @@
             </Grid>
         </ScrollViewer>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Go to Repo" Command="{Binding GoToRepoCommand}">
+                <AppBarButton.Icon>
+                    <BitmapIcon UriSource="ms-appx:///Images/repo.png"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
