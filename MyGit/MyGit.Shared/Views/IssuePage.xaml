@@ -26,7 +26,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <ProgressBar Grid.Row="0" IsIndeterminate="True" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"></ProgressBar>
-        <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled">
+        <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled" x:Name="MainScrollViewer">
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10,0,5,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -79,7 +79,7 @@
                     Recent History
                 </TextBlock>
                 <ProgressRing Margin="0,20,0,0" Grid.Row="8" IsActive="{Binding HistoryViewModel.IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
-                <ListView Grid.Row="8" ItemsSource="{Binding HistoryViewModel.IssueHistory}">
+                <ListView Grid.Row="8" ItemsSource="{Binding HistoryViewModel.IssueHistory}" x:Name="HistoryListView">
                     <ListView.ItemTemplateSelector>
                         <templates:IssueHistoryTemplateSelector Comment="{StaticResource CommentTemplate}">
                             <templates:IssueHistoryTemplateSelector.Event>
@@ -107,6 +107,10 @@
                 <AppBarButton.Icon>
                     <BitmapIcon UriSource="ms-appx:///Images/repo.png"/>
                 </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Label="Scroll Down" Click="ScrollToBottomButton_Click" Icon="Download">
+            </AppBarButton>
+            <AppBarButton Label="Scroll Up" Click="ScrollToTopButton_Click" Icon="Upload">
             </AppBarButton>
         </CommandBar>
     </Page.BottomAppBar>

@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Navigation;
 using MyGit.ViewModels.IssuePage;
@@ -28,6 +30,16 @@ namespace MyGit.Views
         {
             var parameters = e.Parameter as IssuePageParameters;
             this.DataContext = new IssueViewModel(parameters.Repo, parameters.Number, parameters.Owner);
+        }
+
+        private void ScrollToBottomButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            MainScrollViewer.ScrollToVerticalOffset(MainScrollViewer.ScrollableHeight); 
+        }
+
+        private void ScrollToTopButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainScrollViewer.ScrollToVerticalOffset(0); 
         }
     }
 }
