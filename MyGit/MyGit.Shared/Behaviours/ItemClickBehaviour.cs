@@ -57,12 +57,13 @@ namespace MyGit.Behaviours
                         client.Notification.MarkAsRead(int.Parse(notification.Id));
                     }
 
+                    // notification doesn't get issue number, have to parse from url
+                    var numberRegex = new Regex(@"(?<=\/)[^\/]*\Z");
+                    var number = int.Parse(numberRegex.Match(notification.Subject.Url).Value);
+
                     switch (notification.Subject.Type.ToLower())
                     {
                         case "issue":
-                            // notification doesn't get issue number, have to parse from url
-                            var numberRegex = new Regex(@"(?<=\/)[^\/]*\Z");
-                            var number = int.Parse(numberRegex.Match(notification.Subject.Url).Value);
                             var issueParams = new IssuePage.IssuePageParameters
                             {
                                 Number = number,
@@ -70,6 +71,15 @@ namespace MyGit.Behaviours
                                 Repo = notification.Repository.Name
                             };
                             App.Frame.Navigate(typeof (IssuePage), issueParams);
+                            break;
+                        case "pullrequest":
+                            var prParams = new PullRequestPage.PullRequestParams()
+                            {
+                                Number = number,
+                                Owner = notification.Repository.Owner.Login,
+                                Repo = notification.Repository.Name
+                            };
+                            App.Frame.Navigate(typeof(PullRequestPage), prParams);
                             break;
                     }
                 };
@@ -105,6 +115,31 @@ namespace MyGit.Behaviours
                         Repo = repoName,
                         Number = issue.Number,
                         Owner = owner
+                    });
+                };
+            }
+        }
+
+        public static readonly DependencyProperty NavigateToPR = DependencyProperty.RegisterAttached(
+            "ShouldGoToPR", typeof(bool), typeof(ItemClickBehaviour), new PropertyMetadata(false));
+
+        public static bool GetShouldGoToPR(Grid grid)
+        {
+            return (bool)grid.GetValue(NavigateToPR);
+        }
+
+        public static void SetShouldGoToPR(Grid grid, bool value)
+        {
+            if (value)
+            {
+                grid.Tapped += (s, e) =>
+                {
+                    var pr = ((FrameworkElement)s).DataContext as PullRequest;
+                    App.Frame.Navigate(typeof(PullRequestPage), new PullRequestPage.PullRequestParams()
+                    {
+                        Repo = pr.Base.Repository.Name,
+                        Number = pr.Number,
+                        Owner = pr.Base.Repository.Owner.Login
                     });
                 };
             }

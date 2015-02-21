@@ -40,6 +40,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\NotificationsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\UserIssuesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPage\UserRepositoriesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PullRequestPage\PRCommentsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PullRequestPage\PRCommitsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PullRequestPage\PullRequestViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\BaseRepoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryCommitsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryPage\RepositoryIssuesViewModel.cs" />
@@ -53,6 +56,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PullRequestPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\RepositoryPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>

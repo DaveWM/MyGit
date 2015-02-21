@@ -5,9 +5,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:octokit="using:Octokit"
+    xmlns:behaviours="using:MyGit.Behaviours"
     mc:Ignorable="d">
     <DataTemplate x:Key="PRTemplate">
-        <Grid d:DataContext="{d:DesignInstance octokit:PullRequest}" Margin="0,0,0,15" HorizontalAlignment="Stretch">
+        <Grid d:DataContext="{d:DesignInstance octokit:PullRequest}" Margin="0,0,0,15" HorizontalAlignment="Stretch" behaviours:ItemClickBehaviour.ShouldGoToPR="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>

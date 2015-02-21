@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:octokit="using:Octokit"
     mc:Ignorable="d">
-    <DataTemplate x:Key="IssueCommentTemplate">
+    <DataTemplate x:Key="CommentTemplate">
         <Grid d:DataContext="{d:DesignInstance octokit:IssueComment}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
