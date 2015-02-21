@@ -5,9 +5,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:octokit="using:Octokit"
+    xmlns:behaviours="using:MyGit.Behaviours"
     mc:Ignorable="d">
     <DataTemplate x:Key="NewsItemTemplate">
-        <Grid d:DataContext="{d:DesignInstance octokit:Activity}" Margin="0,0,0,10">
+        <Grid d:DataContext="{d:DesignInstance octokit:Activity}" Margin="0,0,0,10" behaviours:ItemClickBehaviour.ShouldGoToActivity="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>

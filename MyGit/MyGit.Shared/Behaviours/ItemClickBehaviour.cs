@@ -144,5 +144,31 @@ namespace MyGit.Behaviours
                 };
             }
         }
+
+
+        public static readonly DependencyProperty NavigateToActivity = DependencyProperty.RegisterAttached(
+            "ShouldGoToActivity", typeof(bool), typeof(ItemClickBehaviour), new PropertyMetadata(false));
+
+        public static bool GetShouldGoToActivity(Grid grid)
+        {
+            return (bool)grid.GetValue(NavigateToPR);
+        }
+
+        public static void SetShouldGoToActivity(Grid grid, bool value)
+        {
+            if (value)
+            {
+                grid.Tapped += (s, e) =>
+                {
+                    var a = ((FrameworkElement)s).DataContext as Activity;
+                    App.Frame.Navigate(typeof(RepositoryPage), new RepositoryPage.RepositoryPageParameters
+                    {
+                        // don't get repo owner, have to split up name instead
+                        Owner = a.Repo.Name.Split('/')[0],
+                        Name = a.Repo.Name.Split('/')[1]
+                    });
+                };
+            }
+        }
     }
 }
