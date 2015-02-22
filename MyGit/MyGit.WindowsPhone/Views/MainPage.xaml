@@ -35,7 +35,7 @@
             <PivotItem Header="Notifications" DataContext="{Binding NotificationsViewModel}">
                 <PivotItem.Content>
                     <Grid>
-                        <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                        <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
                         <ListView ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationItemTemplate}">
                         </ListView>
                     </Grid>
@@ -44,7 +44,7 @@
             <PivotItem Header="News" DataContext="{Binding NewsViewModel}">
                 <PivotItem.Content>
                     <Grid>
-                        <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                        <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
                         <ListView ItemsSource="{Binding NewsItems}" ItemTemplate="{StaticResource NewsItemTemplate}">
                         </ListView>
                     </Grid>
@@ -66,7 +66,7 @@
                             <ComboBoxItem Tag="{Binding WatchedRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Watched"></ComboBoxItem>
                         </ComboBox.Items>
                     </ComboBox>
-                    <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                    <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
                     <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
@@ -91,7 +91,7 @@
                             <ComboBoxItem Tag="{Binding SubscribedIssues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Subscribed"></ComboBoxItem>
                         </ComboBox.Items>
                     </ComboBox>
-                    <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                    <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
                     <ListView Grid.Row="1" ItemsSource="{Binding ElementName=IssueTypeChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource IssueTemplate}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

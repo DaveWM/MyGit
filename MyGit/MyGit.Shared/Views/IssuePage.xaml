@@ -67,7 +67,7 @@
                     <Run>by</Run>
                     <Run Text="{Binding Issue.User.Login}"></Run>
                 </TextBlock>
-                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Grid.Row="4" Visibility="{Binding Issue.Assignee, Converter={StaticResource VisibleIfNotNullConverter}}" Margin="0,5,0,5">
+                <TextBlock FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Grid.Row="4" Visibility="{Binding Issue.Assignee, Converter={StaticResource VisibleIfNotNullConverter}}" Margin="0,5,0,5">
                     <Run>Assigned to</Run>
                     <Run Text="{Binding Issue.Assignee.Login}"></Run>
                 </TextBlock>
@@ -78,7 +78,7 @@
                 <TextBlock Grid.Row="7"  Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5" FontWeight="Bold">
                     Recent History
                 </TextBlock>
-                <ProgressRing Margin="0,20,0,0" Grid.Row="8" IsActive="{Binding HistoryViewModel.IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                <ProgressRing Margin="0,20,0,0" Grid.Row="8" IsActive="{Binding HistoryViewModel.IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
                 <ListView Grid.Row="8" ItemsSource="{Binding HistoryViewModel.IssueHistory}" x:Name="HistoryListView">
                     <ListView.ItemTemplateSelector>
                         <templates:IssueHistoryTemplateSelector Comment="{StaticResource CommentTemplate}">

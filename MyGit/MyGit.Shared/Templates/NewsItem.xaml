@@ -14,7 +14,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Style="{ThemeResource SubheaderTextBlockStyle}" Foreground="White"
+            <TextBlock Grid.Row="0" Style="{ThemeResource SubheaderTextBlockStyle}" 
                        Margin="0,5,5,5" Text="{Binding Repo.Name}" FontWeight="Bold">
             </TextBlock>
             <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}">
