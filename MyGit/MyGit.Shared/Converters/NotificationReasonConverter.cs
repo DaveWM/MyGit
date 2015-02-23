@@ -16,7 +16,7 @@ namespace MyGit.Converters
                 case "subscribed":
                     return "Watching the repo";
                 case "manual":
-                    return "Comment in a subscibed thread";
+                    return "Comment in a subscribed thread";
                 case "author":
                     return "Comment in a thread you created";
                 case "comment":

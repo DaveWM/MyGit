@@ -37,7 +37,7 @@ namespace MyGit.Converters
                     actionString = "locked this issue";
                     break;
                 case EventInfoState.Mentioned:
-                    actionString = "was mentioned in the issue body";
+                    actionString = "was mentioned";
                     break;
                 case EventInfoState.Merged:
                     actionString = "merged this PR";
@@ -46,7 +46,7 @@ namespace MyGit.Converters
                     actionString = "added this issue to a milestone";
                     break;
                 case EventInfoState.Referenced:
-                    actionString = "referenced in commit " + evt.CommitId;
+                    actionString = "referenced in a commit";
                     break;
                 case EventInfoState.Renamed:
                     actionString = "renamed this issue";
@@ -61,7 +61,7 @@ namespace MyGit.Converters
                     actionString = "was unassigned from this issue";
                     break;
                 case EventInfoState.Unlabeled:
-                    actionString = "removed the label '" + evt.Label + "'";
+                    actionString = string.Format("removed the label '{0}'", evt.Label);
                     break;
                 case EventInfoState.Unlocked:
                     actionString = "unlocked this issue";
