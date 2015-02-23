@@ -83,7 +83,8 @@ namespace MyGit.ViewModels.RepositoryPage
             PullRequestsViewModel = new RepositoryPullRequestsViewModel(_owner, _name);
             CommitsViewModel = new RepositoryCommitsViewModel(_owner,_name);
 
-            this.RefreshInternal();
+            this.TryGetReadme();
+            this.Refresh();
         }
 
         public RepositoryViewModel() : base(null, null)
@@ -94,6 +95,11 @@ namespace MyGit.ViewModels.RepositoryPage
         {
             Repository = await GitHubClient.Repository.Get(_owner, _name);
             await CheckSubscriptionStatus();
+            await Task.WhenAll(IssuesViewModel.Refresh(), PullRequestsViewModel.Refresh(), CommitsViewModel.Refresh());
+        }
+
+        private async Task TryGetReadme()
+        {
             try
             {
                 var readme = await GitHubClient.Repository.Content.GetReadme(_owner, _name);
@@ -103,7 +109,6 @@ namespace MyGit.ViewModels.RepositoryPage
             {
                 ReadmeUri = null;
             }
-            await Task.WhenAll(IssuesViewModel.Refresh(), PullRequestsViewModel.Refresh(), CommitsViewModel.Refresh());
         }
 
         public async Task CheckSubscriptionStatus()

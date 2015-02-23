@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using MyGit.Annotations;
+using MyGit.Services;
 using Octokit;
 
 namespace MyGit.ViewModels
@@ -13,6 +11,7 @@ namespace MyGit.ViewModels
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         protected readonly IGitHubClient GitHubClient;
+        protected readonly INavigationService NavigationService;
 
         private bool _isLoading;
 
@@ -32,9 +31,10 @@ namespace MyGit.ViewModels
          protected BaseViewModel()
         {
             GitHubClient = App.Container.Resolve<IGitHubClient>();
+            NavigationService = App.Container.Resolve<INavigationService>();
         }
 
-        public async Task Refresh()
+        public virtual async Task Refresh()
         {
             IsLoading = true;
             try

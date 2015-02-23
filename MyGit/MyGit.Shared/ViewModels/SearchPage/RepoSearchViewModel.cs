@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.UI.Core;
 using Microsoft.Practices.Prism.Commands;
 using Octokit;
 
@@ -32,18 +29,7 @@ namespace MyGit.ViewModels
             }
         }
 
-        public DelegateCommand<KeyEventArgs> OnKeyPress
-        {
-            get
-            {
-                return new DelegateCommand<KeyEventArgs>(ea =>
-                {
-                    var a = 1;
-                });
-            }
-        }
-
-        private IEnumerable<Repository> _searchResults;
+        private IEnumerable<Repository> _searchResults = new List<Repository>();
 
         public IEnumerable<Repository> SearchResults
         {

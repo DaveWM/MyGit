@@ -32,21 +32,5 @@ namespace MyGit.ViewModels.MainPage
             (await GitHubClient.Activity.Starring.GetAllForCurrent()).OrderByDescending(r => r.StargazersCount).ForEach(r => StarredRepos.Add(r));
             (await GitHubClient.Activity.Watching.GetAllForCurrent()).OrderByDescending(r => r.StargazersCount).ForEach(r => WatchedRepos.Add(r));
         }
-
-
-        public DelegateCommand<Repository> OpenRepo
-        {
-            get
-            {
-                return new DelegateCommand<Repository>(repo =>
-                {
-                    App.Frame.Navigate(typeof(Views.RepositoryPage), new Views.RepositoryPage.RepositoryPageParameters
-                    {
-                        Name = repo.Name,
-                        Owner = repo.Owner.Login
-                    });
-                });
-            }
-        }
     }
 }

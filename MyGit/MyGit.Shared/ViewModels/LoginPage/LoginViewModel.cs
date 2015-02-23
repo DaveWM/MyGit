@@ -10,7 +10,7 @@ namespace MyGit.ViewModels.LoginPage
         public LoginViewModel()
         {
             _loginService = App.Container.Resolve<ILoginService>();
-            _loginService.ClearToken();
+            _loginService.Logout();
         }
         public DelegateCommand LoginCommand
         {

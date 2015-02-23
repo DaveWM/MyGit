@@ -14,25 +14,19 @@ using Octokit;
 namespace MyGitTests
 {
     [TestFixture]
-    public class IssueTests
+    public class IssueTests : TestBase
     {
-        private Mock<IGitHubClient> _gitHubClientMock;
-        private Mock<ILoginService> _loginServiceMock;
-
         [SetUp]
         public void Init()
         {
-            _loginServiceMock = new Mock<ILoginService>();
-            _gitHubClientMock = new Mock<IGitHubClient>();
-
-            _gitHubClientMock.Setup(ghc => ghc.Issue.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+            GitHubClientMock.Setup(ghc => ghc.Issue.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
                     var t = new Task<Issue>(() => new Issue());
                     t.Start();
                     return t;
                 });
-            _gitHubClientMock.Setup(
+            GitHubClientMock.Setup(
                 ghc => ghc.Issue.Comment.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
@@ -42,7 +36,7 @@ namespace MyGitTests
                     t.Start();
                     return t;
                 });
-            _gitHubClientMock.Setup(
+            GitHubClientMock.Setup(
                 ghc => ghc.Issue.Events.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
@@ -52,9 +46,6 @@ namespace MyGitTests
                     t.Start();
                     return t;
                 });
-
-            App.Container.RegisterInstance<IGitHubClient>(_gitHubClientMock.Object);
-            App.Container.RegisterInstance<ILoginService>(_loginServiceMock.Object);
         }
 
         [Test]
@@ -68,10 +59,12 @@ namespace MyGitTests
         public async void CheckRefreshMakesCorrectRequests()
         {
             var vm = new IssueViewModel("repo", 1, "owner");
+
             await vm.Refresh();
-            _gitHubClientMock.Verify(ghc => ghc.Issue.Get("owner", "repo", 1), Times.AtLeastOnce());
-            _gitHubClientMock.Verify(ghc => ghc.Issue.Comment.GetForIssue("owner", "repo", 1), Times.AtLeastOnce());
-            _gitHubClientMock.Verify(ghc => ghc.Issue.Events.GetForIssue("owner", "repo", 1), Times.AtLeastOnce());
+
+            GitHubClientMock.Verify(ghc => ghc.Issue.Get("owner", "repo", 1), Times.AtLeastOnce());
+            GitHubClientMock.Verify(ghc => ghc.Issue.Comment.GetForIssue("owner", "repo", 1), Times.AtLeastOnce());
+            GitHubClientMock.Verify(ghc => ghc.Issue.Events.GetForIssue("owner", "repo", 1), Times.AtLeastOnce());
         }
 
         [Test]
@@ -93,7 +86,7 @@ namespace MyGitTests
                 CreatedAt = DateTimeOffset.FromFileTime(50)
             };
 
-            _gitHubClientMock.Setup(
+            GitHubClientMock.Setup(
                 ghc => ghc.Issue.Comment.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
@@ -104,7 +97,7 @@ namespace MyGitTests
                     t.Start();
                     return t;
                 });
-            _gitHubClientMock.Setup(
+            GitHubClientMock.Setup(
                 ghc => ghc.Issue.Events.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {

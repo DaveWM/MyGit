@@ -24,7 +24,7 @@ namespace MyGit.ViewModels.IssuePage
             {
                 return new DelegateCommand(() =>
                 {
-                    App.Frame.Navigate(typeof(Views.RepositoryPage), new Views.RepositoryPage.RepositoryPageParameters
+                    this.NavigationService.Navigate(typeof(Views.RepositoryPage), new Views.RepositoryPage.RepositoryPageParameters
                     {
                         Name = _repoName,
                         Owner = _owner

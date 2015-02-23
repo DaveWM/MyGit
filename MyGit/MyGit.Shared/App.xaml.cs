@@ -7,10 +7,6 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Store;
-#if WINDOWS_PHONE_APP
-using Windows.Phone.UI.Input;
-#endif
-using Windows.Storage;
 using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -21,8 +17,10 @@ using Microsoft.Practices.Unity;
 using MyGit.Services;
 using MyGit.Views;
 using Octokit;
-using Octokit.Internal;
 using Application = Windows.UI.Xaml.Application;
+#if WINDOWS_PHONE_APP
+using Windows.Phone.UI.Input;
+#endif
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -66,6 +64,8 @@ namespace MyGit
             Container.RegisterInstance<IGitHubClient>(_gitHubClient);
             _loginService = new LoginService();
             Container.RegisterInstance<ILoginService>(_loginService);
+            Container.RegisterInstance<ILocalStorageService>(new LocalStorageService());
+            Container.RegisterInstance<INavigationService>(new NavigationService());
 
             this.UnhandledException += async (s, ea) =>
             {

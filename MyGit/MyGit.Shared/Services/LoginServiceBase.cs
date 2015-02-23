@@ -12,14 +12,12 @@ namespace MyGit.Services
         Task Login();
         void Logout();
         bool IsLoggedIn { get;}
-
-        bool TestLoggedIn();
         Task<string> SetTokenFromCode(string code);
-        void ClearToken();
     }
     public abstract class LoginServiceBase : ILoginService
     {
         protected readonly IGitHubClient GitHubClient;
+        protected readonly ILocalStorageService LocalStorageService;
 
         protected const string TokenSettingKey = "token";
         protected abstract string ClientSecret { get; }
@@ -28,25 +26,24 @@ namespace MyGit.Services
 
         public string Token
         {
-            get
-            {
-                var settings = ApplicationData.Current.LocalSettings;
-                return settings.Values.ContainsKey(TokenSettingKey) ? settings.Values[TokenSettingKey] as string : null;
-            }
+            get { return LocalStorageService.Get<string>(TokenSettingKey); }
             private set
             {
-                var settings = ApplicationData.Current.LocalSettings;
-                settings.Values[TokenSettingKey] = value;
+                LocalStorageService.Set(TokenSettingKey, value);
                 RefreshCredentialsFromStorage();
             }
         }
 
         private void RefreshCredentialsFromStorage()
         {
-            var settings = ApplicationData.Current.LocalSettings;
-            if (settings.Values.ContainsKey(TokenSettingKey))
+            if (Token != null)
             {
-                (this.GitHubClient as GitHubClient).Credentials = new Credentials(settings.Values[TokenSettingKey] as string);
+                // hack to make tests pass - IGitHubClient should have credentials on it
+                var clientConcrete = (this.GitHubClient as GitHubClient);
+                if (clientConcrete != null)
+                {
+                    clientConcrete.Credentials = new Credentials(Token);
+                }
             }
         }
         public async Task<string> SetTokenFromCode(string code)
@@ -56,14 +53,10 @@ namespace MyGit.Services
             return token.AccessToken;
         }
 
-        public void ClearToken()
-        {
-            this.Token = null;
-        }
-
         protected LoginServiceBase()
         {
             this.GitHubClient = App.Container.Resolve<IGitHubClient>();
+            LocalStorageService = App.Container.Resolve<ILocalStorageService>();
             RefreshCredentialsFromStorage();
         }
 
@@ -77,11 +70,6 @@ namespace MyGit.Services
         public bool IsLoggedIn
         {
             get { return this.Token != null; }
-        }
-
-        public bool TestLoggedIn()
-        {
-            throw new NotImplementedException();
         }
     }
 }

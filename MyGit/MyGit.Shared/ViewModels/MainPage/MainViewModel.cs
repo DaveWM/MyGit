@@ -60,7 +60,7 @@ namespace MyGit.ViewModels.MainPage
             {
                 return new DelegateCommand(() =>
                 {
-                    App.Frame.Navigate(typeof (Views.UserDetailsPage));
+                    NavigationService.Navigate(typeof (Views.UserDetailsPage));
                 });
             }
         }
@@ -71,7 +71,7 @@ namespace MyGit.ViewModels.MainPage
             {
                 return new DelegateCommand(() =>
                 {
-                    App.Frame.Navigate(typeof(Views.SearchPage));
+                    NavigationService.Navigate(typeof(Views.SearchPage));
                 });
             }
         }
@@ -80,7 +80,7 @@ namespace MyGit.ViewModels.MainPage
         {
             get { return new DelegateCommand(() =>
             {
-                App.Frame.Navigate(typeof (Views.LoginPage));
+                NavigationService.Navigate(typeof(Views.LoginPage));
             });}
         }
     }
