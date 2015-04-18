@@ -5,9 +5,111 @@
     xmlns:local="using:MyGit.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    xmlns:viewModels="using:MyGit.ViewModels"
+    xmlns:repositoryPage="using:MyGit.ViewModels.RepositoryPage"
+    xmlns:behaviours="using:MyGit.Behaviours"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <repositoryPage:RepositoryViewModel></repositoryPage:RepositoryViewModel>
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Templates/Issue.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Templates/PullRequest.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Templates/Commit.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Hub>
+        <Hub.Header>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding GoBack}" Style="{ThemeResource NavigationBackButtonNormalStyle}"/>
+                <TextBlock Text="{Binding Repository.Name}" Margin="15,0,0,0"></TextBlock>
+            </StackPanel>
+        </Hub.Header>
+        <HubSection Header="Details" MinWidth="500">
+            <DataTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10,10,10,0">
+                        <ProgressBar IsIndeterminate="True" IsEnabled="True" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"></ProgressBar>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <SymbolIcon Symbol="SolidStar" VerticalAlignment="Center" Margin="0,0,5,0" Visibility="{Binding IsStarred, Converter={StaticResource BooleanToVisibilityConverter}}"></SymbolIcon>
+                            <SymbolIcon Symbol="Pin" VerticalAlignment="Center" Visibility="{Binding IsWatched, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                            <Ellipse Height="40" Width="40">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Repository.Owner.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Repository.Owner.Login}" Margin="7,0,0,0" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+                        </StackPanel>
+                        <TextBlock Margin="0,0,0,5" FontWeight="Light" Style="{ThemeResource BodyTextBlockStyle}" Visibility="{Binding Repository.Fork, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Run>Forked from </Run>
+                <Hyperlink x:Name="ForkedFromLink" Click="ForkedFromLink_OnClick">
+                    <Run Text="{Binding Repository.Parent.FullName}"></Run>
+                </Hyperlink>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Left">
+                            <SymbolIcon Symbol="SolidStar" VerticalAlignment="Center" Margin="0,0,5,0"></SymbolIcon>
+                            <TextBlock Text="{Binding Repository.StargazersCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0"></TextBlock>
+                            <BitmapIcon UriSource="../Images/fork.png" VerticalAlignment="Center" Margin="0,0,5,0"></BitmapIcon>
+                            <TextBlock Text="{Binding Repository.ForksCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0"></TextBlock>
+                            <BitmapIcon UriSource="../Images/eye_icon.png" VerticalAlignment="Center" Margin="0,3,5,0"></BitmapIcon>
+                            <TextBlock Text="{Binding Repository.WatchersCount}"  VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
+                        </StackPanel>
+                        <TextBlock Margin="0,0,0,5" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light">
+                            <Run>Created on </Run>
+                            <Run Text="{Binding Repository.CreatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,15" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Light">
+                            <Run>Last Updated on </Run>
+                            <Run Text="{Binding Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Repository.Description}" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,0,15"></TextBlock>
+                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Bold" Margin="0,0,0,5">Readme</TextBlock>
+                        <WebView Source="{Binding ReadmeUri}" DefaultBackgroundColor="LightGray"></WebView>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header ="Issues" DataContext="{Binding IssuesViewModel}">
+            <DataTemplate>
+                <Grid>
+                    <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                    <ListView ItemTemplate="{StaticResource IssueTemplate}" ItemsSource="{Binding Issues}"></ListView>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header="Pull Requests" DataContext="{Binding PullRequestsViewModel}">
+            <DataTemplate>
+                <Grid>
+                    <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                    <ListView ItemTemplate="{StaticResource PRTemplate}" ItemsSource="{Binding PullRequests}"></ListView>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header="Commits" DataContext="{Binding CommitsViewModel}">
+            <DataTemplate>
+                <Grid>
+                    <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+                    <ListView ItemTemplate="{StaticResource CommitTemplate}" ItemsSource="{Binding Commits}"></ListView>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="SolidStar" Label="Star" Command="{Binding ToggleStarred}" Visibility="{Binding IsStarred, Converter={StaticResource InverseBooleanToVisibilityConverter}}"></AppBarButton>
+            <AppBarButton Icon="UnFavorite" Label="Unstar" Command="{Binding ToggleStarred}" Visibility="{Binding IsStarred, Converter={StaticResource BooleanToVisibilityConverter}}"></AppBarButton>
+            <AppBarButton Icon="Pin" Label="Watch" Command="{Binding ToggleWatch}" Visibility="{Binding IsWatched, Converter={StaticResource InverseBooleanToVisibilityConverter}}"></AppBarButton>
+            <AppBarButton Icon="UnPin"  Label="Unwatch" Command="{Binding ToggleWatch}" Visibility="{Binding IsWatched, Converter={StaticResource BooleanToVisibilityConverter}}"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -5,9 +5,124 @@
     xmlns:local="using:MyGit.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    xmlns:pullRequestPage="using:MyGit.ViewModels.PullRequestPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <pullRequestPage:PullRequestViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Templates/IssueComment.xaml" />
+                <ResourceDictionary Source="../Templates/Commit.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Hub>
+        <Hub.Header>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding GoBack}" Style="{ThemeResource NavigationBackButtonNormalStyle}"/>
+                <TextBlock Margin="15,0,0,0">Pull Request</TextBlock>
+            </StackPanel>
+        </Hub.Header>
+        <HubSection Header="Details" MinWidth="600">
+            <DataTemplate>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ProgressBar Grid.Row="0" IsIndeterminate="True"
+                     Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <ScrollViewer Grid.Row="1" VerticalScrollMode="Enabled">
+            <Grid Margin="10,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Style="{ThemeResource HeaderTextBlockStyle}" FontWeight="Bold"
+                           TextWrapping="WrapWholeWords"
+                           Margin="0,0,0,5" FontSize="45">
+                    <Run>#</Run><Run Text="{Binding PR.Number}" />
+                    <Run Text="{Binding PR.Title}" />
+                    <Run> (</Run><Run Text="{Binding PR.State}" />
+                    <Run>)</Run>
+                </TextBlock>
+                <TextBlock Grid.Row="1" Margin="0,5,0,15" Style="{ThemeResource BodyTextBlockStyle}">
+                    <Run>Merging into </Run>
+                    <Hyperlink FontWeight="Bold" Click="BaseRepoLink_OnClick">
+                        <Run Text="{Binding PR.Base.Repository.FullName}" />
+                    </Hyperlink>
+                    <Run> from </Run>
+                    <Hyperlink FontWeight="Bold" Click="HeadRepoLink_OnClick">
+                        <Run Text="{Binding PR.Head.Repository.FullName}" />
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Row="2" FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,5,0,5">
+                    <Run>Created </Run>
+                    <Run Text="{Binding PR.CreatedAt, Converter={StaticResource DateFormatConverter}}" />
+                    <Run>by</Run>
+                    <Run Text="{Binding PR.User.Login}" />
+                </TextBlock>
+                <TextBlock Grid.Row="3"
+                           Visibility="{Binding PR.Merged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           FontWeight="Bold" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,5,0,5">
+                    <Run>Merged </Run>
+                    <Run Text="{Binding PR.MergedAt, Converter={StaticResource DateFormatConverter}}" />
+                    <Run>by</Run>
+                    <Run Text="{Binding PR.MergedBy.Login}" />
+                </TextBlock>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" Height="20" HorizontalAlignment="Left" Margin="5">
+                    <SymbolIcon Symbol="Add" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <TextBlock Text="{Binding PR.Additions}" VerticalAlignment="Center"
+                               Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0" />
+                    <SymbolIcon Symbol="Remove" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <TextBlock Text="{Binding PR.Deletions}" VerticalAlignment="Center"
+                               Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0" />
+                    <SymbolIcon Symbol="Copy" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <TextBlock Text="{Binding PR.ChangedFiles}" VerticalAlignment="Center"
+                               Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,12,0" />
+                </StackPanel>
+                <TextBlock Grid.Row="5" Style="{ThemeResource SubheaderTextBlockStyle}" Margin="0,12,0,5"
+                           FontWeight="Bold">
+                    Description
+                </TextBlock>
+                            <TextBlock Grid.Row="6" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding PR.Body}"
+                           Margin="0,10,0,0" />
+                        </Grid>
+        </ScrollViewer>
     </Grid>
+                </DataTemplate>
+        </HubSection>
+        <HubSection Header="Comments" DataContext="{Binding CommentsViewModel}">
+            <DataTemplate>
+            <Grid>
+                <ProgressRing Height="40" Width="40" Foreground="White" IsActive="{Binding IsLoading}"></ProgressRing>
+                <ListView ItemsSource="{Binding Comments}" ItemTemplate="{StaticResource CommentTemplate}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0,10,0,10"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header="Commits" DataContext="{Binding CommitsViewModel}">
+            <DataTemplate>
+                <Grid>
+                    <ProgressRing Height="40" Width="40" Foreground="White" IsActive="{Binding IsLoading}"></ProgressRing>
+                    <ListView ItemsSource="{Binding Commits}" ItemTemplate="{StaticResource CommitTemplate}" />
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
 </Page>

@@ -22,14 +22,16 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10,30,10,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ProgressRing Grid.Row="1" Grid.ColumnSpan="2" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
-        <TextBox Grid.Row="0" Grid.Column="0" InputScope="Search" Text="{Binding SearchString, Mode=TwoWay}" 
+        <ProgressRing Grid.Row="2" Grid.ColumnSpan="2" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
+        <Button Grid.Row="0" Margin="10" Visibility="{Binding IsWindowsPhone, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Command="{Binding GoBack}" Style="{ThemeResource NavigationBackButtonNormalStyle}"></Button>
+        <TextBox Grid.Row="1" Grid.Column="0" InputScope="Search" Text="{Binding SearchString, Mode=TwoWay}" 
                  IsSpellCheckEnabled="False" KeyUp="SearchBox_OnKeyUp" x:Name="SearchBox">
         </TextBox>
         <Button x:Name="SearchButton" Grid.Row="0" Grid.Column="1" MinWidth="40" Command="{Binding SearchCommand}">

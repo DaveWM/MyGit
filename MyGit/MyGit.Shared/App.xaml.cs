@@ -62,10 +62,10 @@ namespace MyGit
             var connection = new Connection(new ProductHeaderValue(appName), new NonCachedHttpClient());
             _gitHubClient = new GitHubClient(connection);
             Container.RegisterInstance<IGitHubClient>(_gitHubClient);
-            _loginService = new LoginService();
-            Container.RegisterInstance<ILoginService>(_loginService);
             Container.RegisterInstance<ILocalStorageService>(new LocalStorageService());
             Container.RegisterInstance<INavigationService>(new NavigationService());
+            _loginService = new LoginService();
+            Container.RegisterInstance<ILoginService>(_loginService);
 
             this.UnhandledException += async (s, ea) =>
             {
@@ -76,7 +76,12 @@ namespace MyGit
                 }
                 else
                 {
-                    new MessageDialog(ea.Message).ShowAsync();
+                    try
+                    {
+                        new MessageDialog(ea.Message).ShowAsync();
+                    }
+                    catch (Exception e) {
+                    }
                     Frame.Navigate(typeof (LoginPage));
                     ea.Handled = true;
                 }

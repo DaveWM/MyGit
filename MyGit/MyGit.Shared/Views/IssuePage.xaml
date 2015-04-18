@@ -39,12 +39,15 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{ThemeResource HeaderTextBlockStyle}" FontWeight="Bold" TextWrapping="WrapWholeWords" 
-                           Margin="0,0,0,15" FontSize="45">
-                    <Run>#</Run><Run Text="{Binding Issue.Number}"></Run>
-                    <Run Text="{Binding Issue.Title}"></Run>
-                    <Run> (</Run><Run Text="{Binding Issue.State}"></Run><Run>)</Run>
-                </TextBlock>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Button Visibility="{Binding IsWindowsPhone, Converter={StaticResource InverseBooleanToVisibilityConverter}}" Command="{Binding GoBack}" Style="{ThemeResource NavigationBackButtonNormalStyle}"></Button>
+                    <TextBlock Style="{ThemeResource HeaderTextBlockStyle}" FontWeight="Bold" TextWrapping="WrapWholeWords" 
+                               Margin="15,0,0,15" FontSize="45">
+                        <Run>#</Run><Run Text="{Binding Issue.Number}"></Run>
+                        <Run Text="{Binding Issue.Title}"></Run>
+                        <Run> (</Run><Run Text="{Binding Issue.State}"></Run><Run>)</Run>
+                    </TextBlock>
+                </StackPanel>
                 <ListView Grid.Row="1" ItemsSource="{Binding Issue.Labels}">
                     <ListView.ItemTemplate>
                         <DataTemplate>

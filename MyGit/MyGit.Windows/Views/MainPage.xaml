@@ -8,33 +8,114 @@
     xmlns:viewModels="using:MyGit.ViewModels"
     xmlns:mainPage="using:MyGit.ViewModels.MainPage"
     mc:Ignorable="d">
+    <Page.DataContext>
+        <mainPage:MainViewModel></mainPage:MainViewModel>
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Templates/NotificationItem.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Templates/NewsItem.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Templates/Repository.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../Templates/Issue.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
         <Hub>
-            <HubSection Header="Notifications">
-                <HubSection.DataContext>
-                    <mainPage:NotificationsViewModel></mainPage:NotificationsViewModel>
-                </HubSection.DataContext>
+            <Hub.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,25,0">MyGit</TextBlock>
+                    <Ellipse Height="35" Width="35" VerticalAlignment="Center">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding User.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding User.Login}" Margin="7,0,0,0" Style="{StaticResource BodyTextBlockStyle}" Padding="0,0,0,3"></TextBlock>
+                </StackPanel>
+            </Hub.Header>
+            <HubSection Header="Notifications" DataContext="{Binding NotificationsViewModel}"  MinWidth="600">
                 <DataTemplate>
-                    <StackPanel>
-                    <ProgressBar Visibility="{Binding IsLoading}" IsIndeterminate="True"></ProgressBar>
-                        <ListView ItemsSource="{Binding Notifications}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding UpdatedAt}"></TextBlock>
-                                        <TextBlock Grid.Column="1" Text="{Binding Path=Subject.Title}"></TextBlock>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
+                    <Grid>
+                        <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
+                        <ListView ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationItemTemplate}">
                         </ListView>
-                    </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="News" DataContext="{Binding NewsViewModel}"  MinWidth="500">
+                <DataTemplate>
+                    <Grid>
+                        <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
+                        <ListView ItemsSource="{Binding NewsItems}" ItemTemplate="{StaticResource NewsItemTemplate}">
+                        </ListView>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="Repositories" DataContext="{Binding ReposViewModel}"  MinWidth="500">
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Row="0" Name="RepoChoiceBox" SelectedValuePath="Tag">
+                            <ComboBox.Items>
+                                <ComboBoxItem Tag="{Binding OwnedRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Owned" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Tag="{Binding StarredRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Starred"></ComboBoxItem>
+                                <ComboBoxItem Tag="{Binding WatchedRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Watched"></ComboBoxItem>
+                            </ComboBox.Items>
+                        </ComboBox>
+                        <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
+                        <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="Issues" DataContext="{Binding IssuesViewModel}" MinWidth="400">
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Row="0" Name="IssueTypeChoiceBox" SelectedValuePath="Tag">
+                            <ComboBox.Items>
+                                <ComboBoxItem Tag="{Binding AssignedIssues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Assigned" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Tag="{Binding SubscribedIssues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Subscribed"></ComboBoxItem>
+                            </ComboBox.Items>
+                        </ComboBox>
+                        <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
+                        <ListView Grid.Row="1" ItemsSource="{Binding ElementName=IssueTypeChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource IssueTemplate}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </Grid>
                 </DataTemplate>
             </HubSection>
         </Hub>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar DataContext="{Binding DataContext, ElementName=Page}">
+            <AppBarButton Label="Refresh" Command="{Binding RefreshCommand, Mode=OneWay}" Icon="Refresh"/>
+            <AppBarButton Label="User Details" Icon="Contact" Command="{Binding GoToUserDetails}"/>
+            <AppBarButton Label="Search" Icon="Find" Command="{Binding GoToSearch}"></AppBarButton>
+            <AppBarButton Icon="Undo" Label="Log Out" Command="{Binding Logout}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
 

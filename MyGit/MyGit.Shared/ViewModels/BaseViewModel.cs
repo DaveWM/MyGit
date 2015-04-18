@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Unity;
 using MyGit.Annotations;
 using MyGit.Services;
@@ -56,6 +57,25 @@ namespace MyGit.ViewModels
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public DelegateCommand GoBack
+        {
+            get
+            {
+                return new DelegateCommand(App.Frame.GoBack, () => App.Frame.CanGoBack);
+            }
+        }
+
+        public bool IsWindowsPhone
+        {
+            get
+            {
+#if WINDOWS_PHONE_APP
+                return true;
+#endif
+                return false;
+            }
         }
     }
 }
