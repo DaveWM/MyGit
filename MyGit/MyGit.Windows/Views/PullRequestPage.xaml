@@ -26,7 +26,7 @@
                 <TextBlock Margin="15,0,0,0">Pull Request</TextBlock>
             </StackPanel>
         </Hub.Header>
-        <HubSection Header="Details" MinWidth="600">
+        <HubSection Header="Details" Width="500">
             <DataTemplate>
     <Grid>
         <Grid.RowDefinitions>
@@ -101,11 +101,11 @@
     </Grid>
                 </DataTemplate>
         </HubSection>
-        <HubSection Header="Comments" DataContext="{Binding CommentsViewModel}">
+        <HubSection Header="Comments" DataContext="{Binding CommentsViewModel}" Width="500">
             <DataTemplate>
             <Grid>
                 <ProgressRing Height="40" Width="40" Foreground="White" IsActive="{Binding IsLoading}"></ProgressRing>
-                <ListView ItemsSource="{Binding Comments}" ItemTemplate="{StaticResource CommentTemplate}">
+                  <ListView SelectionMode="None" ItemsSource="{Binding Comments}" ItemTemplate="{StaticResource CommentTemplate}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -116,11 +116,11 @@
             </Grid>
             </DataTemplate>
         </HubSection>
-        <HubSection Header="Commits" DataContext="{Binding CommitsViewModel}">
+        <HubSection Header="Commits" DataContext="{Binding CommitsViewModel}" Width="500">
             <DataTemplate>
                 <Grid>
                     <ProgressRing Height="40" Width="40" Foreground="White" IsActive="{Binding IsLoading}"></ProgressRing>
-                    <ListView ItemsSource="{Binding Commits}" ItemTemplate="{StaticResource CommitTemplate}" />
+                    <ListView SelectionMode="None" ItemsSource="{Binding Commits}" ItemTemplate="{StaticResource CommitTemplate}" />
                 </Grid>
             </DataTemplate>
         </HubSection>

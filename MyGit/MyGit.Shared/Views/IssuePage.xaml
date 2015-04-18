@@ -48,7 +48,7 @@
                         <Run> (</Run><Run Text="{Binding Issue.State}"></Run><Run>)</Run>
                     </TextBlock>
                 </StackPanel>
-                <ListView Grid.Row="1" ItemsSource="{Binding Issue.Labels}">
+                <ListView SelectionMode="None" Grid.Row="1" ItemsSource="{Binding Issue.Labels}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Background="{Binding Color,Converter={StaticResource ColourStringConverter}}" Margin="8">
@@ -82,7 +82,7 @@
                     Recent History
                 </TextBlock>
                 <ProgressRing Margin="0,20,0,0" Grid.Row="8" IsActive="{Binding HistoryViewModel.IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
-                <ListView Grid.Row="8" ItemsSource="{Binding HistoryViewModel.IssueHistory}" x:Name="HistoryListView">
+                <ListView SelectionMode="None" Grid.Row="8" ItemsSource="{Binding HistoryViewModel.IssueHistory}" x:Name="HistoryListView">
                     <ListView.ItemTemplateSelector>
                         <templates:IssueHistoryTemplateSelector Comment="{StaticResource CommentTemplate}">
                             <templates:IssueHistoryTemplateSelector.Event>

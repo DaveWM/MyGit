@@ -2,18 +2,47 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Practices.ObjectBuilder2;
-using Microsoft.Practices.Prism.Commands;
 using Octokit;
 
 namespace MyGit.ViewModels.MainPage
 {
     public class UserRepositoriesViewModel : BaseViewModel
     {
-        public ObservableCollection<Repository> OwnedRepos { get; set; }
+        private ObservableCollection<Repository> _ownedRepos;
 
-        public ObservableCollection<Repository> StarredRepos { get; set; }
+        public ObservableCollection<Repository> OwnedRepos
+        {
+            get { return _ownedRepos; }
+            set
+            {
+                _ownedRepos = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public ObservableCollection<Repository> WatchedRepos { get; set; }
+        private ObservableCollection<Repository> _starredRepos;
+
+        public ObservableCollection<Repository> StarredRepos
+        {
+            get { return _starredRepos; }
+            set
+            {
+                _starredRepos = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<Repository> _watchedRepos;
+
+        public ObservableCollection<Repository> WatchedRepos
+        {
+            get { return _watchedRepos; }
+            set
+            {
+                _watchedRepos = value;
+                OnPropertyChanged();
+            }
+        }
 
         public UserRepositoriesViewModel()
         {

@@ -34,25 +34,25 @@
                     <TextBlock VerticalAlignment="Center" Text="{Binding User.Login}" Margin="7,0,0,0" Style="{StaticResource BodyTextBlockStyle}" Padding="0,0,0,3"></TextBlock>
                 </StackPanel>
             </Hub.Header>
-            <HubSection Header="Notifications" DataContext="{Binding NotificationsViewModel}"  MinWidth="600">
+            <HubSection Header="Notifications" DataContext="{Binding NotificationsViewModel}"  Width="650">
                 <DataTemplate>
                     <Grid>
                         <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
-                        <ListView ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationItemTemplate}">
+                        <ListView SelectionMode="None" ItemsSource="{Binding Notifications}" ItemTemplate="{StaticResource NotificationItemTemplate}">
                         </ListView>
                     </Grid>
                 </DataTemplate>
             </HubSection>
-            <HubSection Header="News" DataContext="{Binding NewsViewModel}"  MinWidth="500">
+            <HubSection Header="News" DataContext="{Binding NewsViewModel}"  Width="650">
                 <DataTemplate>
                     <Grid>
                         <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
-                        <ListView ItemsSource="{Binding NewsItems}" ItemTemplate="{StaticResource NewsItemTemplate}">
+                        <ListView SelectionMode="None" ItemsSource="{Binding NewsItems}" ItemTemplate="{StaticResource NewsItemTemplate}">
                         </ListView>
                     </Grid>
                 </DataTemplate>
             </HubSection>
-            <HubSection Header="Repositories" DataContext="{Binding ReposViewModel}"  MinWidth="500">
+            <HubSection Header="Repositories" DataContext="{Binding ReposViewModel}"  Width="650">
                 <DataTemplate>
                     <Grid HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
@@ -62,7 +62,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <ComboBox Grid.Row="0" Name="RepoChoiceBox" SelectedValuePath="Tag">
+                        <ComboBox Grid.Row="0" x:Name="RepoChoiceBox" SelectedValuePath="Tag" Loaded="RepoChoiceBox_OnLoaded">
                             <ComboBox.Items>
                                 <ComboBoxItem Tag="{Binding OwnedRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Owned" IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Tag="{Binding StarredRepos, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Starred"></ComboBoxItem>
@@ -70,7 +70,7 @@
                             </ComboBox.Items>
                         </ComboBox>
                         <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
-                        <ListView Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}">
+                        <ListView SelectionMode="None" Grid.Row="1" ItemsSource="{Binding ElementName=RepoChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource RepositoryTemplate}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -80,7 +80,7 @@
                     </Grid>
                 </DataTemplate>
             </HubSection>
-            <HubSection Header="Issues" DataContext="{Binding IssuesViewModel}" MinWidth="400">
+            <HubSection Header="Issues" DataContext="{Binding IssuesViewModel}" Width="650">
                 <DataTemplate>
                     <Grid HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
@@ -90,14 +90,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <ComboBox Grid.Row="0" Name="IssueTypeChoiceBox" SelectedValuePath="Tag">
+                        <ComboBox Grid.Row="0" Name="IssueTypeChoiceBox" SelectedValuePath="Tag" Loaded="IssueTypeChoiceBox_OnLoaded">
                             <ComboBox.Items>
                                 <ComboBoxItem Tag="{Binding AssignedIssues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Assigned" IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Tag="{Binding SubscribedIssues, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Content="Subscribed"></ComboBoxItem>
                             </ComboBox.Items>
                         </ComboBox>
                         <ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="{ThemeResource ApplicationForegroundThemeBrush}"></ProgressRing>
-                        <ListView Grid.Row="1" ItemsSource="{Binding ElementName=IssueTypeChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource IssueTemplate}">
+                        <ListView SelectionMode="None" Grid.Row="1" ItemsSource="{Binding ElementName=IssueTypeChoiceBox, Path=SelectedItem.Tag}" ItemTemplate="{StaticResource IssueTemplate}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

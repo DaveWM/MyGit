@@ -29,7 +29,7 @@
                 <TextBlock Text="{Binding Repository.Name}" Margin="15,0,0,0"></TextBlock>
             </StackPanel>
         </Hub.Header>
-        <HubSection Header="Details" MinWidth="500">
+        <HubSection Header="Details" MinWidth="400">
             <DataTemplate>
             <Grid>
                 <Grid.RowDefinitions>
@@ -73,33 +73,36 @@
                             <Run Text="{Binding Repository.UpdatedAt, Converter={StaticResource DateFormatConverter}}"></Run>
                         </TextBlock>
                         <TextBlock Text="{Binding Repository.Description}" Style="{ThemeResource BodyTextBlockStyle}" Margin="0,0,0,15"></TextBlock>
-                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Bold" Margin="0,0,0,5">Readme</TextBlock>
-                        <WebView Source="{Binding ReadmeUri}" DefaultBackgroundColor="LightGray"></WebView>
                     </StackPanel>
                 </Grid>
             </DataTemplate>
         </HubSection>
-        <HubSection Header ="Issues" DataContext="{Binding IssuesViewModel}">
+        <HubSection Visibility="{Binding HasReadme, Converter={StaticResource BooleanToVisibilityConverter}}" Width="1200" Header="Readme">
+            <DataTemplate>
+                <WebView Width="1120" Height="2000" Source="{Binding ReadmeUri}" DefaultBackgroundColor="LightGray"></WebView>
+            </DataTemplate>
+        </HubSection>
+        <HubSection Header ="Issues" DataContext="{Binding IssuesViewModel}" Width="450">
             <DataTemplate>
                 <Grid>
                     <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
-                    <ListView ItemTemplate="{StaticResource IssueTemplate}" ItemsSource="{Binding Issues}"></ListView>
+                    <ListView SelectionMode="None" ItemTemplate="{StaticResource IssueTemplate}" ItemsSource="{Binding Issues}"></ListView>
                 </Grid>
             </DataTemplate>
         </HubSection>
-        <HubSection Header="Pull Requests" DataContext="{Binding PullRequestsViewModel}">
+        <HubSection Header="Pull Requests" DataContext="{Binding PullRequestsViewModel}" Width="450">
             <DataTemplate>
                 <Grid>
                     <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
-                    <ListView ItemTemplate="{StaticResource PRTemplate}" ItemsSource="{Binding PullRequests}"></ListView>
+                    <ListView SelectionMode="None" ItemTemplate="{StaticResource PRTemplate}" ItemsSource="{Binding PullRequests}"></ListView>
                 </Grid>
             </DataTemplate>
         </HubSection>
-        <HubSection Header="Commits" DataContext="{Binding CommitsViewModel}">
+        <HubSection Header="Commits" DataContext="{Binding CommitsViewModel}" Width="450">
             <DataTemplate>
                 <Grid>
                     <ProgressRing IsActive="{Binding IsLoading}" Height="40" Width="40" Foreground="White"></ProgressRing>
-                    <ListView ItemTemplate="{StaticResource CommitTemplate}" ItemsSource="{Binding Commits}"></ListView>
+                    <ListView SelectionMode="None" ItemTemplate="{StaticResource CommitTemplate}" ItemsSource="{Binding Commits}"></ListView>
                 </Grid>
             </DataTemplate>
         </HubSection>
