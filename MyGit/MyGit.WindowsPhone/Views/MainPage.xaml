@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mainPage="using:MyGit.ViewModels.MainPage"
     mc:Ignorable="d"
-    Name="Page">
+    Name="Page">s
     <Page.DataContext>
         <mainPage:MainViewModel></mainPage:MainViewModel>
     </Page.DataContext>

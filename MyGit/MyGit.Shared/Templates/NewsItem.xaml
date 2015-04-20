@@ -17,12 +17,9 @@
             <TextBlock Grid.Row="0" Style="{ThemeResource SubheaderTextBlockStyle}" 
                        Margin="0,5,5,5" Text="{Binding Repo.Name}" FontWeight="Bold">
             </TextBlock>
-            <TextBlock Grid.Row="1" Style="{ThemeResource BodyTextBlockStyle}">
-                <Run FontWeight="Light" Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
-                <Run> </Run>
-                <Run Text="{Binding Type}"></Run>
-            </TextBlock>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,10,0">
+                <TextBlock FontWeight="Light" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Margin="0,0,10,0"
+                           Text="{Binding CreatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></TextBlock>
                 <Ellipse Height="40" Width="40">
                     <Ellipse.Fill>
                         <ImageBrush ImageSource="{Binding Actor.AvatarUrl, Converter={StaticResource StringToUriConverter}}"></ImageBrush>
@@ -30,6 +27,34 @@
                 </Ellipse>
                 <TextBlock VerticalAlignment="Center" Text="{Binding Actor.Login}" Margin="7,0,0,0" Style="{ThemeResource BodyTextBlockStyle}"></TextBlock>
             </StackPanel>
+            <Border BorderBrush="WhiteSmoke" Margin="15,10,0,0" Padding="8,0,0,0" BorderThickness="2,0,0,0" Grid.Row="2">
+                <ContentControl Content="{Binding}">
+                    <ContentControl.ContentTemplateSelector>
+                        <local:ActivityPayloadTemplateSelector>
+                            <local:ActivityPayloadTemplateSelector.Default>
+                                <DataTemplate>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Type}"></TextBlock>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.Default>
+                            <local:ActivityPayloadTemplateSelector.IssueComment>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
+                                                    <Run>@</Run>
+                                                    <Run Text="{Binding Payload.Sender.Login}"></Run>
+                                                    <Run> commented on issue #</Run>
+                                                    <Run Text="{Binding Payload.Issue.Number}"></Run>
+                                                    <Run> </Run>
+                                                    <Run Text="{Binding Payload.Issue.Name}"></Run>
+                                        </TextBlock>
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light" Text="{Binding Comment.Body}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.IssueComment>
+                        </local:ActivityPayloadTemplateSelector>
+                    </ContentControl.ContentTemplateSelector>
+                </ContentControl>
+            </Border>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

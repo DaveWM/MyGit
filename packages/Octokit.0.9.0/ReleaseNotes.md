@@ -1,3 +1,61 @@
+### New in 0.9.0 (released 2015/04/04)
+* New: added `PullRequest.Files` APIs - #752 via @alfhenrik
+* Fixed: `PullRequestRequest` now supports `SortDirection` and `SortProperty` - #752 via @alfhenrik
+* Fixed: `Repository.Create` now enforces a repository name - #763 via @haacked
+* Fixed: corrected naming conventions for endpoints which return a list of results - #766 via @alfhenrik
+* Deprecated: `Repository.GetReadme` and `Repository.GetReadmeHtml` - #759 via @khellang
+
+**Breaking Changes:**
+ - `NewRepository` constructor requires a `name` parameter
+ - `IRepositoriesClient.GetReadme` -> `IRepositoriesClient.Content.GetReadme`
+ - `IRepositoriesClient.GetReadmeHtml` -> `IRepositoriesClient.Content.GetReadmeHtml`
+ - `IFollowersClient.GetFollowingForCurrent` -> `IFollowersClient.GetAllFollowingForCurrent`
+ - `IFollowersClient.GetFollowing` -> `IFollowersClient.GetAllFollowing`
+
+### New in 0.8.0 (released 2015/03/20)
+* New: added `MiscellaneousClient.GetGitIgnoreTemplates` and `MiscellaneousClient.GetGitIgnoreTemplates` APIs - #753 via @haacked
+* New: added `MiscellaneousClient.GetLicenses` and `MiscellaneousClient.GetLicense` preview APIs - #754 via @haacked
+* New: enhancements to `AuthorizationClient`- #731 via @alfhenrik
+* Fixed: handled `unsubscribe` type for Issue events - #751 via @darrencamp
+* Fixes: ensure response models define readonly interfaces - #755 via @khellang
+
+### New in 0.7.3 (released 2015/03/06)
+* New: added `Repository.GetAllPublic` for searching public repositories - #691 via @rms81
+* New: added filters to `Repository.GetAllForCurrent()` - #742 via @shiftkey
+* Fixed: deserializing `EventInfoType` value with underscore now works - #727 via @janovesk
+* Deprecated: `Repository.SubscriberCount` has no data - #739 via @basildk
+* Deprecated: `Repository.Organization` has no data - #726 via @alfhenrik
+
+### New in 0.7.2 (released 2015/03/01)
+* Fixed: unshipped Orgs Permissions preview API changes due to excessive paging in some situations.
+
+### New in 0.7.1 (released 2015/02/26)
+* New: `SearchCodeRequest` has overloads for owner and repository name - #705 via @kfrancis
+* New - support for preview Authorization API changes - #647 via @shiftkey
+* New - `Account.Type` to identify user or organization account - #714 via @shiftkey
+* Fixed: `EventTypeInfo` did not parse `head_ref_deleted` and `head_ref_restored` - #711 via @janovesk
+* Fixed: `IssueUpdate.Labels` did not support "no change" updates - #718 via @shiftkey
+* Fixed: `ReleaseUploadAsset` does not require protected setters - #720 via @shiftkey
+* Deprecated: `Repository.WatchedCount` has no data - #701 via @DaveWM
+
+### New in 0.7.0 (Released 2015/02/24)
+* New: Response models now use read-only properties - #658, #662 via @haacked, #663 via @khellang, #679 via @Zoltu
+* New: Added `Truncated` property to `TreeResponse` - #674 via @Zoltu
+* New: Added `GetRecursive` method to `ITreesClient` - #673 via @Zoltu
+* New: Added `Merging` client to `Repository` API: - #603 via @tabro
+* New: API internals are now read-only - #662 via @haacked
+* Fixed: Commit Status API now supports combined status- #618 via @khellang
+* Fixed: Changed `IGistCommentsClient` identifiers to `string` instead of `int` - #681 via @thedillonb
+* Fixed: Improved error message when repository creation fails - #667 via @gabrielweyer
+* Fixed: Team membership API was incorrect - #695 via @aneville
+
+**Breaking Changes**
+- Response models are all read only. It is recommended that you subclass the
+  model class if you need to contructor responses (e.g. for testing)
+- `IResponse` is now a `readonly` interface.
+- `ApiResponse<T>` accepts the strongly typed body as an argument.
+- `IResponse<T>` changed to `IApiResponse<T>`.
+
 ### New in 0.6.2 (Released 2015/01/06)
 * New: Added `Assignee` and `Label` to `EventInfo` and `IssueEvent` repsonses - #644 via @thedillonb
 * New: Added `BrowserDownloadUrl` to `ReleaseAsset` response - #648 via @erangeljr

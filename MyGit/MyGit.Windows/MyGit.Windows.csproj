@@ -161,8 +161,10 @@
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
       <HintPath>..\..\packages\Unity.3.5.1405-prerelease\lib\win8\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
-    <Reference Include="Octokit">
-      <HintPath>..\..\packages\Octokit.0.6.2\lib\netcore45\Octokit.dll</HintPath>
+    <Reference Include="Octokit, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Octokit.0.9.0\lib\netcore45\Octokit.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UniversalWrapPanel">
       <HintPath>..\..\packages\UniversalWrapPanel.1.0.0\lib\netcore451\UniversalWrapPanel.dll</HintPath>
