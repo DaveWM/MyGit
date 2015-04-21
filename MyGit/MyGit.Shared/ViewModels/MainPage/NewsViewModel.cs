@@ -23,11 +23,10 @@ namespace MyGit.ViewModels.MainPage
         {
             NewsItems = null;
             var user = await GitHubClient.User.Current();
-            var received = (await GitHubClient.Activity.Events.GetUserReceived(user.Login)).Take(100);
-            //var performed = (await GitHubClient.Activity.Events.GetUserPerformed(user.Login)).Take(10);
+            var received = (await GitHubClient.Activity.Events.GetUserReceived(user.Login));
+            var performed = (await GitHubClient.Activity.Events.GetUserPerformed(user.Login));
 
-            NewsItems = received;
-            //.Union(performed).OrderByDescending(a => a.CreatedAt);
+            NewsItems = received.Union(performed).OrderByDescending(a => a.CreatedAt);
         }
     }
 }
