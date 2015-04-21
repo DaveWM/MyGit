@@ -17,6 +17,7 @@
             <converters:ColourStringConverter x:Key="ColourStringConverter"></converters:ColourStringConverter>
             <converters:EventToStringConverter x:Key="EventToStringConverter"></converters:EventToStringConverter>
             <converters:VisibleIfNotNullConverter x:Key="VisibleIfNotNullConverter"></converters:VisibleIfNotNullConverter>
+            <Style TargetType="Button" x:Key="NavigationBackButtonNormalStyle"></Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
