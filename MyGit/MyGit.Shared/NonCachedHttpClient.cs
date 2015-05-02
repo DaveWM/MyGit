@@ -22,7 +22,7 @@ namespace MyGit
             if (request.Endpoint.OriginalString.Contains("events") && !request.Endpoint.IsAbsoluteUri)
             {
                 var httpRequest = new HttpRequestMessage(request.Method,
-                    new Uri(request.BaseAddress.OriginalString + request.Endpoint.OriginalString + "?page=1&per_page=100"));
+                    new Uri(request.BaseAddress.OriginalString + request.Endpoint.OriginalString + "?page=1&per_page=50"));
                 request.Headers.Where(h => h.Key.ToLower() != "user-agent").ForEach(h => httpRequest.Headers.Add(h.Key, h.Value));
                 return httpRequest;
             }
