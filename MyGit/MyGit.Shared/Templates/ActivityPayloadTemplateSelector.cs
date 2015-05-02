@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Octokit;
 
@@ -11,6 +10,7 @@ namespace MyGit.Templates
         public static DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(string), typeof(Activity), new PropertyMetadata(""));
         public DataTemplate Default { get; set; }
         public DataTemplate IssueComment { get; set; }
+        public DataTemplate Push { get; set; }
         protected override DataTemplate SelectTemplateCore(object item)
         {
             var activity = item as Activity;
@@ -22,6 +22,8 @@ namespace MyGit.Templates
             {
                 case "IssueCommentEvent":
                     return IssueComment;
+                case "PushEvent":
+                    return Push;
                 default:
                     return Default;
             }

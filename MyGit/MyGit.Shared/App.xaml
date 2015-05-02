@@ -17,6 +17,8 @@
             <converters:ColourStringConverter x:Key="ColourStringConverter"></converters:ColourStringConverter>
             <converters:EventToStringConverter x:Key="EventToStringConverter"></converters:EventToStringConverter>
             <converters:VisibleIfNotNullConverter x:Key="VisibleIfNotNullConverter"></converters:VisibleIfNotNullConverter>
+            <converters:RefToBranchConverter x:Key="RefToBranchConverter"></converters:RefToBranchConverter>
+            <converters:CamelCaseSpacingConverter x:Key="CamelCaseSpacingConverter"></converters:CamelCaseSpacingConverter>
             <Style TargetType="Button" x:Key="NavigationBackButtonNormalStyle"></Style>
         </ResourceDictionary>
     </Application.Resources>

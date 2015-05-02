@@ -33,24 +33,41 @@
                         <local:ActivityPayloadTemplateSelector>
                             <local:ActivityPayloadTemplateSelector.Default>
                                 <DataTemplate>
-                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Type}"></TextBlock>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Type, Converter = {StaticResource CamelCaseSpacingConverter}}"></TextBlock>
                                 </DataTemplate>
                             </local:ActivityPayloadTemplateSelector.Default>
                             <local:ActivityPayloadTemplateSelector.IssueComment>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
-                                                    <Run>@</Run>
-                                                    <Run Text="{Binding Payload.Sender.Login}"></Run>
-                                                    <Run> commented on issue #</Run>
-                                                    <Run Text="{Binding Payload.Issue.Number}"></Run>
-                                                    <Run> </Run>
+                                                    <Run>Commented on issue #</Run><Run Text="{Binding Payload.Issue.Number}"></Run>
                                                     <Run Text="{Binding Payload.Issue.Name}"></Run>
                                         </TextBlock>
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light" Text="{Binding Comment.Body}"></TextBlock>
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light" Text="{Binding Payload.Comment.Body}"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </local:ActivityPayloadTemplateSelector.IssueComment>
+                            <local:ActivityPayloadTemplateSelector.Push>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
+                                            <Run>Pushed</Run>
+                                            <Run Text="{Binding Payload.Size}"></Run>
+                                            <Run>commits to branch</Run>
+                                            <Run Text="{Binding Payload.Ref, Converter = {StaticResource RefToBranchConverter}}"></Run>
+                                        </TextBlock>
+                                        <ListView ItemsSource="{Binding Payload.Commits}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock FontWeight="Light" Style="{ThemeResource BaseTextBlockStyle}" Margin="15,8,0,0">
+                                                        <Run Text="{Binding Message}"></Run>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.Push>
                         </local:ActivityPayloadTemplateSelector>
                     </ContentControl.ContentTemplateSelector>
                 </ContentControl>
