@@ -29,7 +29,7 @@
             <TextBlock Grid.Row="1" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Reason, Converter={StaticResource NotificationReasonConverter}}" Margin="0,0,0,10"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}">
                 <Run FontWeight="Light" Text="{Binding UpdatedAt, Converter={StaticResource DateFormatConverter}, ConverterParameter='dd/MM/yyyy'}"></Run>
-                <Run Text="{Binding Subject.Type}"></Run>
+                <Run Text="{Binding Subject.Type, Converter={StaticResource CamelCaseSpacingConverter}}"></Run>
                 <Run> - </Run>
                 <Run Text="{Binding Subject.Title}"></Run>
             </TextBlock>
