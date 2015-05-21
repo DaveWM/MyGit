@@ -36,14 +36,24 @@
                                     <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Type, Converter = {StaticResource CamelCaseSpacingConverter}}"></TextBlock>
                                 </DataTemplate>
                             </local:ActivityPayloadTemplateSelector.Default>
+                            <local:ActivityPayloadTemplateSelector.Issue>
+                                <DataTemplate>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
+                                        <Run>Issue #</Run><Run Text="{Binding Payload.Issue.Number}"></Run>
+                                        <Run FontWeight="Bold" Text="{Binding Payload.Issue.Title}"></Run>
+                                        <Run>was</Run>
+                                        <Run Text="{Binding Payload.Action}"></Run>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.Issue>
                             <local:ActivityPayloadTemplateSelector.IssueComment>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
                                                     <Run>Commented on issue #</Run><Run Text="{Binding Payload.Issue.Number}"></Run>
-                                                    <Run Text="{Binding Payload.Issue.Name}"></Run>
+                                                    <Run FontWeight="Bold" Text="{Binding Payload.Issue.Title}"></Run>
                                         </TextBlock>
-                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light" Text="{Binding Payload.Comment.Body}"></TextBlock>
+                                        <TextBlock  Margin="0,8,0,0" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light" Text="{Binding Payload.Comment.Body}"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </local:ActivityPayloadTemplateSelector.IssueComment>
@@ -59,7 +69,7 @@
                                         <ListView ItemsSource="{Binding Payload.Commits}">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock FontWeight="Light" Style="{ThemeResource BaseTextBlockStyle}" Margin="15,8,0,0">
+                                                    <TextBlock FontWeight="Light" Style="{ThemeResource BaseTextBlockStyle}" Margin="0,8,0,0">
                                                         <Run Text="{Binding Message}"></Run>
                                                     </TextBlock>
                                                 </DataTemplate>
@@ -68,6 +78,41 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </local:ActivityPayloadTemplateSelector.Push>
+                            <local:ActivityPayloadTemplateSelector.Watch>
+                                <DataTemplate>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}">Starred Repo</TextBlock>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.Watch>
+                            <local:ActivityPayloadTemplateSelector.Fork>
+                                <DataTemplate>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
+                                        <Run>Repo was forked to </Run>
+                                        <Run Text="{Binding Payload.Forkee.FullName}"></Run>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.Fork>
+                            <local:ActivityPayloadTemplateSelector.PullRequest>
+                                <DataTemplate>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
+                                        <Run>PR #</Run><Run Text="{Binding Payload.PullRequest.Number}"></Run>
+                                        <Run FontWeight="Bold" Text="{Binding Payload.PullRequest.Title}"></Run>
+                                        <Run>was</Run>
+                                        <Run Text="{Binding Payload.Action}"></Run>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.PullRequest>
+                            <local:ActivityPayloadTemplateSelector.PullRequestComment>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}">
+                                        <Run>Comment on PR #</Run><Run Text="{Binding Payload.PullRequest.Number}"></Run>
+                                        <Run FontWeight="Bold" Text="{Binding Payload.PullRequest.Title}"></Run><Run>, file</Run>
+                                        <Run Text="{Binding Payload.Comment.Path, Converter={StaticResource RefToBranchConverter}}"></Run>
+                                        </TextBlock>
+                                        <TextBlock Margin="0,8,0,0" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light" Text="{Binding Payload.Comment.Body}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </local:ActivityPayloadTemplateSelector.PullRequestComment>
                         </local:ActivityPayloadTemplateSelector>
                     </ContentControl.ContentTemplateSelector>
                 </ContentControl>
