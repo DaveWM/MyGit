@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Data;
 using Microsoft.Practices.Unity;
 using MyGit.Views;
 using Octokit;
+using System.Linq;
 
 namespace MyGit.Behaviours
 {
@@ -160,13 +161,46 @@ namespace MyGit.Behaviours
             {
                 grid.Tapped += (s, e) =>
                 {
-                    var a = ((FrameworkElement)s).DataContext as Activity;
-                    App.Frame.Navigate(typeof(RepositoryPage), new RepositoryPage.RepositoryPageParameters
+                    var activity = ((FrameworkElement)s).DataContext as Activity;
+                    switch (activity.Type)
                     {
-                        // don't get repo owner, have to split up name instead
-                        Owner = a.Repo.Name.Split('/')[0],
-                        Name = a.Repo.Name.Split('/')[1]
-                    });
+                        case "IssuesEvent":
+                        case "IssueCommentEvent":
+                            var issue = (activity.Payload as dynamic).Issue as Issue;
+                            App.Frame.Navigate(typeof(IssuePage), new IssuePage.IssuePageParameters
+                            {
+                                Number = issue.Number,
+                                Owner = activity.Repo.Name.Split('/')[0],
+                                Repo = activity.Repo.Name.Split('/')[1]
+                            });
+                            break;
+                        case "ForkEvent":
+                            var fork = (activity.Payload as dynamic).Forkee as Repository;
+                            App.Frame.Navigate(typeof(RepositoryPage), new RepositoryPage.RepositoryPageParameters
+                            {
+                                Owner = fork.Owner.Login,
+                                Name = fork.Name
+                            });
+                            break;
+                        case "PullRequestEvent":
+                        case "PullRequestReviewCommentEvent":
+                            var pr = (activity.Payload as dynamic).PullRequest as PullRequest;
+                            App.Frame.Navigate(typeof(PullRequestPage), new PullRequestPage.PullRequestParams
+                            {
+                                Number = pr.Number,
+                                Owner = activity.Repo.Name.Split('/')[0],
+                                Repo = activity.Repo.Name.Split('/')[1]
+                            });
+                            break;
+                        default:
+                            App.Frame.Navigate(typeof(RepositoryPage), new RepositoryPage.RepositoryPageParameters
+                            {
+                                // don't get repo owner, have to split up name instead
+                                Owner = activity.Repo.Name.Split('/')[0],
+                                Name = activity.Repo.Name.Split('/')[1]
+                            });
+                            break;
+                    }
                 };
             }
         }
