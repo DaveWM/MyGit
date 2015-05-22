@@ -42,7 +42,12 @@ namespace MyGit
 
         public static Frame Frame
         {
-            get { return Window.Current.Content as Frame; }
+            get
+            {
+                if (Window.Current == null || Window.Current.Content == null)
+                    return null;
+                return Window.Current.Content as Frame;
+            }
         }
 
         /// <summary>

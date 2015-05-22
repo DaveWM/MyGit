@@ -23,7 +23,7 @@ namespace MyGit.ViewModels.RepositoryPage
 
         protected async override Task RefreshInternal()
         {
-            PullRequests = await GitHubClient.PullRequest.GetForRepository(Owner, Repo);
+            PullRequests = await GitHubClient.PullRequest.GetAllForRepository(Owner, Repo);
         }
     }
 }

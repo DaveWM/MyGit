@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Practices.ObjectBuilder2;
 using Moq;
-using MyGit.ViewModels;
-using MyGit.ViewModels.IssuePage;
 using MyGit.ViewModels.MainPage;
 using MyGit.Views;
 using NUnit.Framework;
@@ -22,9 +16,9 @@ namespace MyGitTests
         [SetUp]
         public new void Init()
         {
-            var currentUser = new Mock<User>();
-            currentUser.SetupProperty(u => u.Name, "Bob");
-            GitHubClientMock.Setup(m => m.User.Current()).Returns(() => Task.FromResult(currentUser.Object));
+            var currentUser = new User(null, null, null, 0, null, DateTimeOffset.UtcNow, 0, null, 0, 0, null, null, 0, 0,
+                null, null, "Bob", 0, null, 0, 0, 0, null, false);
+            GitHubClientMock.Setup(m => m.User.Current()).Returns(() => Task.FromResult(currentUser));
             GitHubClientMock.Setup(m => m.Issue.GetAllForCurrent(It.IsAny<IssueRequest>()))
                 .Returns(() => Task.FromResult(new List<Issue>() as IReadOnlyList<Issue>));
             GitHubClientMock.Setup(m => m.Repository.GetAllForCurrent())
@@ -35,9 +29,9 @@ namespace MyGitTests
                 .Returns(() => Task.FromResult(new List<Repository>() as IReadOnlyList<Repository>));
             GitHubClientMock.Setup(m => m.Notification.GetAllForCurrent())
                 .Returns(() => Task.FromResult(new List<Notification>() as IReadOnlyList<Notification>));
-            GitHubClientMock.Setup(m => m.Activity.Events.GetUserPerformed(It.IsAny<string>()))
+            GitHubClientMock.Setup(m => m.Activity.Events.GetAllUserPerformed(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(new List<Activity>() as IReadOnlyList<Activity>));
-            GitHubClientMock.Setup(m => m.Activity.Events.GetUserReceived(It.IsAny<string>()))
+            GitHubClientMock.Setup(m => m.Activity.Events.GetAllUserReceived(It.IsAny<string>()))
                 .Returns(() => Task.FromResult(new List<Activity>() as IReadOnlyList<Activity>));
         }
         [Test]
@@ -115,17 +109,17 @@ namespace MyGitTests
         [Test]
         public async void NewsVMShouldGetAllReceivedAndPerformedEvents()
         {
-            GitHubClientMock.Setup(m => m.Activity.Events.GetUserPerformed(It.IsAny<string>())).Returns(() => Task.FromResult(new List<Activity> { new Activity() } as IReadOnlyList<Activity>));
-            GitHubClientMock.Setup(m => m.Activity.Events.GetUserReceived(It.IsAny<string>())).Returns(() => Task.FromResult(new List<Activity> { new Activity() } as IReadOnlyList<Activity>));
+            GitHubClientMock.Setup(m => m.Activity.Events.GetAllUserPerformed(It.IsAny<string>())).Returns(() => Task.FromResult(new List<Activity> { new Activity() } as IReadOnlyList<Activity>));
+            GitHubClientMock.Setup(m => m.Activity.Events.GetAllUserReceived(It.IsAny<string>())).Returns(() => Task.FromResult(new List<Activity> { new Activity() } as IReadOnlyList<Activity>));
 
-            var currentUser = new Mock<User>();
-            currentUser.SetupProperty(u => u.Name, "Bob");
-            GitHubClientMock.Setup(m => m.User.Current()).Returns(() => Task.FromResult(currentUser.Object));
+            var currentUser = new User(null, null, null, 0, null, DateTimeOffset.UtcNow, 0, null, 0, 0, null, null, 0, 0,
+                null, "New Guy", null, 0, null, 0, 0, 0, null, false);
+            GitHubClientMock.Setup(m => m.User.Current()).Returns(() => Task.FromResult(currentUser));
 
             var vm = new NewsViewModel();
             await vm.Refresh();
-            GitHubClientMock.Verify(m => m.Activity.Events.GetUserPerformed("Bob"), Times.Once());
-            GitHubClientMock.Verify(m => m.Activity.Events.GetUserReceived("Bob"), Times.Once());
+            GitHubClientMock.Verify(m => m.Activity.Events.GetAllUserPerformed("New Guy"), Times.Once());
+            GitHubClientMock.Verify(m => m.Activity.Events.GetAllUserReceived("New Guy"), Times.Once());
             Assert.AreEqual(2, vm.NewsItems.Count());
         }
 
@@ -156,11 +150,10 @@ namespace MyGitTests
             GitHubClientMock.Setup(m => m.Issue.GetAllForCurrent(It.IsAny<IssueRequest>()))
                 .Returns(() =>
                 {
-                    var issue = new Mock<Issue>();
-                    issue.SetupProperty(x => x.HtmlUrl, new Uri(string.Format("http://www.google.com/{0}", i++)));
+                    var issue = new Issue(null, new Uri(string.Format("http://www.google.com/{0}", i++)), 1, ItemState.All, null, null, null, null, null, null, 0, null, null, DateTimeOffset.UtcNow, null);
                     return Task.FromResult(new List<Issue>
                     {
-                        issue.Object
+                        issue
                     } as IReadOnlyList<Issue>);
                 });
 
@@ -175,10 +168,9 @@ namespace MyGitTests
         [Test]
         public async void SubscribedIssuesShouldNotIncludeAssigned()
         {
-            var issue = new Mock<Issue>();
-            issue.SetupProperty(i => i.HtmlUrl, new Uri("http://www.google.com"));
+            var issue = new Issue(null, new Uri("http://www.google.com"), 1, ItemState.All, null, null, null, null, null, null, 0, null, null, DateTimeOffset.UtcNow, null);
             GitHubClientMock.Setup(m => m.Issue.GetAllForCurrent(It.IsAny<IssueRequest>()))
-                .Returns(() => Task.FromResult(new List<Issue>{ issue.Object } as IReadOnlyList<Issue>));
+                .Returns(() => Task.FromResult(new List<Issue>{ issue } as IReadOnlyList<Issue>));
 
             var vm = new UserIssuesViewModel();
             await vm.Refresh();

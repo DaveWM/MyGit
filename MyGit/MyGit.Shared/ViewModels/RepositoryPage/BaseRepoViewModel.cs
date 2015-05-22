@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyGit.ViewModels.RepositoryPage
+﻿namespace MyGit.ViewModels.RepositoryPage
 {
     public abstract class BaseRepoViewModel : BaseViewModel
     {

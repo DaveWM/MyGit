@@ -31,7 +31,7 @@ namespace MyGit.ViewModels.PullRequestPage
 
         protected async override Task RefreshInternal()
         {
-            Comments = await GitHubClient.Issue.Comment.GetForIssue(_owner, _repo, _number);
+            Comments = await GitHubClient.Issue.Comment.GetAllForIssue(_owner, _repo, _number);
         }
     }
 }

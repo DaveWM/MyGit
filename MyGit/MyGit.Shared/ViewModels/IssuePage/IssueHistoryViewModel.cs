@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Octokit;
 
@@ -61,8 +59,8 @@ namespace MyGit.ViewModels.IssuePage
 
         protected async override Task RefreshInternal()
         {
-            Comments = await GitHubClient.Issue.Comment.GetForIssue(_owner, _repoName, _number);
-            IssueEvents = await GitHubClient.Issue.Events.GetForIssue(_owner, _repoName, _number);
+            Comments = await GitHubClient.Issue.Comment.GetAllForIssue(_owner, _repoName, _number);
+            IssueEvents = await GitHubClient.Issue.Events.GetAllForIssue(_owner, _repoName, _number);
 
             IssueHistory = Comments.Select(c => new
             {

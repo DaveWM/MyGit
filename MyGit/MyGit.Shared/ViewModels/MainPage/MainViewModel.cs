@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Commands;
+using MyGit.Views;
 using Octokit;
 
 namespace MyGit.ViewModels.MainPage
@@ -71,7 +72,7 @@ namespace MyGit.ViewModels.MainPage
             {
                 return new DelegateCommand(() =>
                 {
-                    NavigationService.Navigate(typeof(Views.SearchPage));
+                    NavigationService.Navigate(typeof(SearchPage));
                 });
             }
         }

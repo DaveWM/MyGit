@@ -24,7 +24,7 @@ namespace MyGit.ViewModels.RepositoryPage
 
         protected async override Task RefreshInternal()
         {
-            Issues = (await GitHubClient.Issue.GetForRepository(this.Owner, this.Repo)).OrderByDescending(i => i.CreatedAt);
+            Issues = (await GitHubClient.Issue.GetAllForRepository(this.Owner, this.Repo)).OrderByDescending(i => i.CreatedAt);
         }
 
         public RepositoryIssuesViewModel(string owner, string repo) : base(owner,repo)

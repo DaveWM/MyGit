@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
 using Moq;
-using MyGit;
-using MyGit.Services;
 using MyGit.ViewModels.IssuePage;
 using NUnit.Framework;
 using Octokit;
@@ -27,7 +24,7 @@ namespace MyGitTests
                     return t;
                 });
             GitHubClientMock.Setup(
-                ghc => ghc.Issue.Comment.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                ghc => ghc.Issue.Comment.GetAllForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
                     var t =
@@ -37,7 +34,7 @@ namespace MyGitTests
                     return t;
                 });
             GitHubClientMock.Setup(
-                ghc => ghc.Issue.Events.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                ghc => ghc.Issue.Events.GetAllForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
                     var t =
@@ -63,44 +60,37 @@ namespace MyGitTests
             await vm.Refresh();
 
             GitHubClientMock.Verify(ghc => ghc.Issue.Get("owner", "repo", 1), Times.AtLeastOnce());
-            GitHubClientMock.Verify(ghc => ghc.Issue.Comment.GetForIssue("owner", "repo", 1), Times.AtLeastOnce());
-            GitHubClientMock.Verify(ghc => ghc.Issue.Events.GetForIssue("owner", "repo", 1), Times.AtLeastOnce());
+            GitHubClientMock.Verify(ghc => ghc.Issue.Comment.GetAllForIssue("owner", "repo", 1), Times.AtLeastOnce());
+            GitHubClientMock.Verify(ghc => ghc.Issue.Events.GetAllForIssue("owner", "repo", 1), Times.AtLeastOnce());
         }
 
         [Test]
         public async void TestIssueHistory()
         {
-            var firstComment = new Mock<IssueComment>();
-            firstComment.SetupGet(i => i.Id).Returns(1);
-            firstComment.SetupGet(i => i.CreatedAt).Returns(DateTimeOffset.FromFileTime(0));
+            var firstComment = new IssueComment(1, null, null, null, DateTimeOffset.FromFileTime(0), null, null);
+            var secondComment = new IssueComment(3, null, null, null, DateTimeOffset.FromFileTime(100), null, null);
 
-            var secondComment = new Mock<IssueComment>();
-            secondComment.SetupGet(i => i.Id).Returns(3);
-            secondComment.SetupGet(i => i.CreatedAt).Returns(DateTimeOffset.FromFileTime(100));
-
-            var firstEvent = new Mock<EventInfo>();
-            firstEvent.SetupGet(i => i.Id).Returns(2);
-            firstEvent.SetupGet(i => i.CreatedAt).Returns(DateTimeOffset.FromFileTime(50));
+            var firstEvent = new EventInfo(2, null, null, null, null, EventInfoState.Assigned, null, DateTimeOffset.FromFileTime(50));
 
             GitHubClientMock.Setup(
-                ghc => ghc.Issue.Comment.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                ghc => ghc.Issue.Comment.GetAllForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
                     var t =
                         new Task<IReadOnlyList<IssueComment>>(
                             () => new ReadOnlyCollection<IssueComment>(new List<IssueComment>
-                            {firstComment.Object,secondComment.Object}));
+                            {firstComment,secondComment}));
                     t.Start();
                     return t;
                 });
             GitHubClientMock.Setup(
-                ghc => ghc.Issue.Events.GetForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                ghc => ghc.Issue.Events.GetAllForIssue(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(() =>
                 {
                     var t =
                         new Task<IReadOnlyList<EventInfo>>(() => new ReadOnlyCollection<EventInfo>(new List<EventInfo>
                         {
-                            firstEvent.Object
+                            firstEvent
                         }));
                     t.Start();
                     return t;

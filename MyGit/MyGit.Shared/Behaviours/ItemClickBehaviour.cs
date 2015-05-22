@@ -1,11 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 using Microsoft.Practices.Unity;
 using MyGit.Views;
 using Octokit;
-using System.Linq;
 
 namespace MyGit.Behaviours
 {

@@ -22,7 +22,7 @@ namespace MyGitTests
                 .Returns(() => Task.FromResult(new PullRequest()));
             GitHubClientMock.Setup(m => m.PullRequest.Commits(_owner, _repo, _number))
                 .Returns(() => Task.FromResult(new List<PullRequestCommit>() as IReadOnlyList<PullRequestCommit>));
-            GitHubClientMock.Setup(m => m.Issue.Comment.GetForIssue(_owner, _repo, _number))
+            GitHubClientMock.Setup(m => m.Issue.Comment.GetAllForIssue(_owner, _repo, _number))
                 .Returns(() => Task.FromResult(new List<IssueComment>() as IReadOnlyList<IssueComment>));
         }
 
@@ -59,12 +59,12 @@ namespace MyGitTests
         [Test]
         public async void PRCommentsRefreshShouldGetComments()
         {
-            GitHubClientMock.Setup(m => m.Issue.Comment.GetForIssue(_owner, _repo, _number))
+            GitHubClientMock.Setup(m => m.Issue.Comment.GetAllForIssue(_owner, _repo, _number))
                 .Returns(() => Task.FromResult(new List<IssueComment>{new IssueComment()} as IReadOnlyList<IssueComment>));
 
             var vm = new PRCommentsViewModel(_repo, _owner, _number);
             await vm.Refresh();
-            GitHubClientMock.Verify(m => m.Issue.Comment.GetForIssue(_owner,_repo,_number), Times.Once());
+            GitHubClientMock.Verify(m => m.Issue.Comment.GetAllForIssue(_owner, _repo, _number), Times.Once());
             Assert.AreEqual(1, vm.Comments.Count());
         }
 

@@ -21,7 +21,8 @@ namespace MyGit.ViewModels.LoginPage
                     await _loginService.Login();
                     // wp app will close and re-open, only continue if we're on windows desktop
 #if WINDOWS_APP
-                    App.Frame.Navigate(typeof(Views.MainPage));
+                    if(App.Frame != null)
+                        App.Frame.Navigate(typeof(Views.MainPage));
 #endif
                 });
             }
