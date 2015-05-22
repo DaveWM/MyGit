@@ -1,5 +1,5 @@
 test:
   assemblies:
     - MyGit.UnitTests.dll
-  platform: Any CPU
-  configuration: Debug
+platform: Any CPU
+configuration: Debug
