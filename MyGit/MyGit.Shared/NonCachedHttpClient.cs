@@ -23,7 +23,7 @@ namespace MyGit
             {
                 var httpRequest = new HttpRequestMessage(request.Method,
                     new Uri(request.BaseAddress.OriginalString + request.Endpoint.OriginalString + "?page=1&per_page=50"));
-                request.Headers.Where(h => h.Key.ToLower() != "user-agent").ForEach(h => httpRequest.Headers.Add(h.Key, h.Value));
+                request.Headers.ForEach(h => httpRequest.Headers.Add(h.Key, h.Value));
                 return httpRequest;
             }
             else return base.BuildRequestMessage(request);
@@ -39,6 +39,10 @@ namespace MyGit
                 responseMessage.Headers.Remove("Link");
             }
             return base.BuildResponse(responseMessage);
+        }
+
+        public NonCachedHttpClient() : base(HttpMessageHandlerFactory.CreateDefault)
+        {
         }
     }
 }

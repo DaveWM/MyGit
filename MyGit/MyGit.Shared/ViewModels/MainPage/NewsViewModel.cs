@@ -25,7 +25,6 @@ namespace MyGit.ViewModels.MainPage
             var user = await GitHubClient.User.Current();
             var receivedTask = GitHubClient.Activity.Events.GetAllUserReceived(user.Login);
             var performedTask = GitHubClient.Activity.Events.GetAllUserPerformed(user.Login);
-            Task.WaitAll(receivedTask, performedTask);
             var received = await receivedTask;
             var performed = await performedTask;
             NewsItems = received.Union(performed).OrderByDescending(a => a.CreatedAt);

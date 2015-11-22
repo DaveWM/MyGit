@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Octokit;
@@ -25,7 +26,8 @@ namespace MyGit.ViewModels.MainPage
 
             var unorderedNotifications = await GitHubClient.Notification.GetAllForCurrent(new NotificationsRequest
             {
-                All = true
+                All = true,
+                Since = new DateTimeOffset(new DateTime(2001, 1, 1))
             });
             Notifications = unorderedNotifications.OrderByDescending(n => n.Unread).ThenByDescending(n => n.UpdatedAt);
         }

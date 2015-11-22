@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.Storage;

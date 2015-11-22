@@ -17,5 +17,9 @@ namespace NotificationsBackgroundTask
             request.Headers["Pragma"] = "no-cache";
             return base.BuildRequestMessage(request);
         }
+
+        public NonCachedHttpClient() : base(HttpMessageHandlerFactory.CreateDefault)
+        {
+        }
     }
 }

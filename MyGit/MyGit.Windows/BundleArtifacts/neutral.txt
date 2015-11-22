@@ -1,4 +1,4 @@
-MainPackage=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\bin\Release\MyGit.Windows_1.1.0.6_Bundle\MyGit.Windows_1.1.0.6_AnyCPU.appx
-SymbolPackage=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\AppPackages\MyGit.Windows_1.1.0.6_Test\MyGit.Windows_1.1.0.6_AnyCPU.appxsym
-ResourcePack=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\bin\Release\MyGit.Windows_1.1.0.6_Bundle\MyGit.Windows_1.1.0.6_scale-140.appx
-ResourcePack=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\bin\Release\MyGit.Windows_1.1.0.6_Bundle\MyGit.Windows_1.1.0.6_scale-180.appx
+MainPackage=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\bin\Release\MyGit.Windows_1.1.0.7_Bundle\MyGit.Windows_1.1.0.7_AnyCPU.appx
+SymbolPackage=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\AppPackages\MyGit.Windows_1.1.0.7_Test\MyGit.Windows_1.1.0.7_AnyCPU.appxsym
+ResourcePack=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\bin\Release\MyGit.Windows_1.1.0.7_Bundle\MyGit.Windows_1.1.0.7_scale-140.appx
+ResourcePack=C:\Users\David\Documents\Visual Studio 2013\Projects\MyGit\MyGit\MyGit.Windows\bin\Release\MyGit.Windows_1.1.0.7_Bundle\MyGit.Windows_1.1.0.7_scale-180.appx

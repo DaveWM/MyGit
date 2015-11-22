@@ -150,7 +150,7 @@ namespace MyGitTests
             GitHubClientMock.Setup(m => m.Issue.GetAllForCurrent(It.IsAny<IssueRequest>()))
                 .Returns(() =>
                 {
-                    var issue = new Issue(null, new Uri(string.Format("http://www.google.com/{0}", i++)), 1, ItemState.All, null, null, null, null, null, null, 0, null, null, DateTimeOffset.UtcNow, null);
+                    var issue = new Issue(null, new Uri(string.Format("http://www.google.com/{0}", i++)), null, 1, ItemState.All, null, null, null, null, null, null, 0, null, null, DateTimeOffset.UtcNow, null);
                     return Task.FromResult(new List<Issue>
                     {
                         issue
@@ -168,7 +168,7 @@ namespace MyGitTests
         [Test]
         public async void SubscribedIssuesShouldNotIncludeAssigned()
         {
-            var issue = new Issue(null, new Uri("http://www.google.com"), 1, ItemState.All, null, null, null, null, null, null, 0, null, null, DateTimeOffset.UtcNow, null);
+            var issue = new Issue(null, null, new Uri("http://www.google.com"), 1, ItemState.All, null, null, null, null, null, null, 0, null, null, DateTimeOffset.UtcNow, null);
             GitHubClientMock.Setup(m => m.Issue.GetAllForCurrent(It.IsAny<IssueRequest>()))
                 .Returns(() => Task.FromResult(new List<Issue>{ issue } as IReadOnlyList<Issue>));
 
